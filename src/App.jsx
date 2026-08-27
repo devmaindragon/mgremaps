@@ -55,6 +55,10 @@ const STR = {
     pickModel: "MODEL SEÇ",
     back: "GERİ",
     recent: "SON YAPILAN ARAÇLAR",
+    wTitle: "MgRemaps — Asistan'a hoş geldiniz",
+    wBody1: "Uygulamamızda Stage 1 – Stage 2 – Stage 3 uygulamalarında aracınızın kazanacağı hp ve tork değerlerini, gereken modlarla beraber görebilirsiniz.",
+    wBody2: "Ayrıca son yapılan araçlar, bayilerin iletişim bilgileri ve 100-200 liderlik tablomuz da mevcut.",
+    wGo: "BAŞLA",
     vehicles: "araç",
     brandHint: "Marka seçerek başla",
     search: "Ara",
@@ -108,6 +112,10 @@ const STR = {
     pickModel: "SELECT MODEL",
     back: "BACK",
     recent: "RECENT BUILDS",
+    wTitle: "Welcome to MgRemaps — Assistant",
+    wBody1: "See the hp and torque your vehicle gains with Stage 1, Stage 2 and Stage 3 remaps, along with the hardware each one needs.",
+    wBody2: "Recent builds, dealer contact details and our 100-200 km/h leaderboard are here too.",
+    wGo: "START",
     vehicles: "vehicles",
     brandHint: "Start by choosing a brand",
     search: "Search",
@@ -161,6 +169,10 @@ const STR = {
     pickModel: "MODELL WÄHLEN",
     back: "ZURÜCK",
     recent: "LETZTE UMBAUTEN",
+    wTitle: "Willkommen bei MgRemaps — Assistent",
+    wBody1: "Sehen Sie, wie viel PS und Drehmoment Ihr Fahrzeug mit Stufe 1, Stufe 2 und Stufe 3 gewinnt — samt der jeweils nötigen Hardware.",
+    wBody2: "Ebenfalls dabei: letzte Umbauten, Kontaktdaten der Händler und unsere 100-200 km/h Rangliste.",
+    wGo: "LOSLEGEN",
     vehicles: "Fahrzeuge",
     brandHint: "Zuerst eine Marke wählen",
     search: "Suchen",
@@ -211,6 +223,19 @@ const LANGS = [
 ];
 
 const LS_KEY = "mg.lang";
+const LS_SEEN = "mg.seen";
+function seenWelcome() {
+  try {
+    return localStorage.getItem(LS_SEEN) === "1";
+  } catch (e) {
+    return false;
+  }
+}
+function markWelcome() {
+  try {
+    localStorage.setItem(LS_SEEN, "1");
+  } catch (e) {}
+}
 function detectLang() {
   try {
     const saved = localStorage.getItem(LS_KEY);
@@ -1854,6 +1879,7 @@ export default function App() {
   const [tab, setTab] = useState(0);
   const [veh, setVeh] = useState(null);
   const [langOpen, setLangOpen] = useState(false);
+  const [welcome, setWelcome] = useState(() => !seenWelcome());
 
   const S = STR[lang];
   const fmtCtx = useMemo(() => makeFmt(S.code), [S.code]);
@@ -1979,6 +2005,21 @@ export default function App() {
             </div>
           </div>
         </div>
+
+        <Modal
+          open={welcome}
+          title={S.wTitle}
+          closeLabel={S.wGo}
+          onClose={() => {
+            setWelcome(false);
+            markWelcome();
+          }}
+        >
+          <div style={{ padding: t.pad, display: "grid", gap: 10 }}>
+            <p style={{ margin: 0, fontSize: 13, lineHeight: 1.55, color: t.text }}>{S.wBody1}</p>
+            <p style={{ margin: 0, fontSize: 13, lineHeight: 1.55, color: t.text }}>{S.wBody2}</p>
+          </div>
+        </Modal>
 
         <Modal
           open={langOpen}
