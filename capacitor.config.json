@@ -1,0 +1,6 @@
+{
+  "appId": "com.mgremaps.app",
+  "appName": "MgRemaps",
+  "webDir": "dist",
+  "ios": { "contentInset": "always", "backgroundColor": "#0b0e11" }
+}

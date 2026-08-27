@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="tr"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MgRemaps — Hakkında</title>
+<style>
+:root{--bg:#0b0e11;--card:#151a1f;--line:#272f38;--text:#f2f4f6;--muted:#7b8794;--accent:#d0202c;--btn:#181e25}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;line-height:1.6}
+.wrap{max-width:680px;margin:0 auto;padding:22px 14px 60px}
+h1{font-family:ui-monospace,Menlo,monospace;text-transform:uppercase;letter-spacing:.1em;font-size:15px;margin:0 0 4px}
+h2{font-size:11px;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);margin:22px 0 6px;font-weight:600}
+p,li{font-size:14px;color:var(--text)}
+ul{padding-left:18px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:11px;margin-top:12px}
+.meta{font-family:ui-monospace,Menlo,monospace;font-size:11px;color:var(--muted)}
+a{color:var(--accent)}
+nav{display:flex;gap:2px;background:var(--btn);border:1px solid var(--line);border-radius:3px;padding:2px;margin-bottom:18px}
+nav button{flex:1;min-height:38px;border:0;border-radius:3px;background:transparent;color:var(--muted);font:600 11px/1 inherit;letter-spacing:.09em;cursor:pointer}
+nav button.on{background:var(--accent);color:#fff}
+[data-l]{display:none}[data-l].on{display:block}
+</style></head><body><div class="wrap">
+<nav>
+<button data-set="tr" class="on">TÜRKÇE</button><button data-set="en">ENGLISH</button><button data-set="de">DEUTSCH</button>
+</nav>
+<div data-l="tr" class="on">
+<h1>MgRemaps</h1><p class="meta">Sürüm 1.0.0</p>
+<div class="card"><p>Motor yazılımı sonrası beklenen güç ve tork aralığını araç bazında gösteren, MgRemaps bayi ağına doğrudan bağlayan bir referans aracı.</p></div>
+<h2>İçindekiler</h2>
+<ul><li>Araç kütüphanesi: motor koduna göre stok, Stage 1 ve Stage 2 tepe değerleri</li>
+<li>Devir–güç ve devir–tork eğrileri, üç seviye üst üste</li>
+<li>İl bazlı bayi listesi, tek dokunuşla arama</li>
+<li>MgRemaps güç sıralaması</li>
+<li>Türkçe, İngilizce, Almanca · araç verisi çevrimdışı çalışır</li></ul>
+<h2>Not</h2><p>Gösterilen değerler tahminîdir ve bağlayıcı değildir. Kesin sonuç için bayinize danışın.</p>
+<p><a href="./privacy.html">Gizlilik</a> · <a href="./support.html">Destek</a></p>
+</div>
+<div data-l="en">
+<h1>MgRemaps</h1><p class="meta">Version 1.0.0</p>
+<div class="card"><p>A reference tool showing the expected power and torque range after an ECU remap, per vehicle, with a direct line to the MgRemaps dealer network.</p></div>
+<h2>What's inside</h2>
+<ul><li>Vehicle library: stock, Stage 1 and Stage 2 peaks by engine code</li>
+<li>Rpm–power and rpm–torque curves, three levels overlaid</li>
+<li>Dealer list by city, one-tap calling</li>
+<li>MgRemaps power leaderboard</li>
+<li>Turkish, English, German · vehicle data works offline</li></ul>
+<h2>Note</h2><p>Figures are estimates and not binding. Ask your dealer for exact results.</p>
+<p><a href="./privacy.html">Privacy</a> · <a href="./support.html">Support</a></p>
+</div>
+<div data-l="de">
+<h1>MgRemaps</h1><p class="meta">Version 1.0.0</p>
+<div class="card"><p>Ein Nachschlagewerkzeug für die zu erwartende Leistung und das Drehmoment nach dem Chiptuning — fahrzeugbezogen, mit direktem Draht zum MgRemaps-Händlernetz.</p></div>
+<h2>Inhalt</h2>
+<ul><li>Fahrzeugbibliothek: Serie, Stufe 1 und Stufe 2 nach Motorcode</li>
+<li>Drehzahl–Leistung und Drehzahl–Drehmoment, drei Stufen übereinander</li>
+<li>Händlerliste nach Stadt, Anruf mit einem Tipp</li>
+<li>MgRemaps Leistungsrangliste</li>
+<li>Türkisch, Englisch, Deutsch · Fahrzeugdaten offline verfügbar</li></ul>
+<h2>Hinweis</h2><p>Die Werte sind Schätzungen und unverbindlich. Genaue Ergebnisse beim Händler erfragen.</p>
+<p><a href="./privacy.html">Datenschutz</a> · <a href="./support.html">Support</a></p>
+</div>
+</div>
+<script>
+(function(){
+  var k="gh.lang", btns=[].slice.call(document.querySelectorAll("nav button"));
+  function set(l){
+    [].forEach.call(document.querySelectorAll("[data-l]"),function(d){d.classList.toggle("on",d.dataset.l===l)});
+    btns.forEach(function(b){b.classList.toggle("on",b.dataset.set===l)});
+    document.documentElement.lang=l;
+    try{localStorage.setItem(k,l)}catch(e){}
+  }
+  var saved=null;
+  try{saved=localStorage.getItem(k)}catch(e){}
+  if(!saved){var n=(navigator.language||"en").slice(0,2).toLowerCase(); saved=["tr","en","de"].indexOf(n)>-1?n:"en";}
+  btns.forEach(function(b){b.onclick=function(){set(b.dataset.set)}});
+  set(saved);
+})();
+</script>
+</body></html>

@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="tr"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MgRemaps — Destek</title>
+<style>
+:root{--bg:#0b0e11;--card:#151a1f;--line:#272f38;--text:#f2f4f6;--muted:#7b8794;--accent:#d0202c;--btn:#181e25}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;line-height:1.6}
+.wrap{max-width:680px;margin:0 auto;padding:22px 14px 60px}
+h1{font-family:ui-monospace,Menlo,monospace;text-transform:uppercase;letter-spacing:.1em;font-size:15px;margin:0 0 4px}
+h2{font-size:11px;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);margin:22px 0 6px;font-weight:600}
+p,li{font-size:14px;color:var(--text)}
+ul{padding-left:18px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:11px;margin-top:12px}
+.meta{font-family:ui-monospace,Menlo,monospace;font-size:11px;color:var(--muted)}
+a{color:var(--accent)}
+nav{display:flex;gap:2px;background:var(--btn);border:1px solid var(--line);border-radius:3px;padding:2px;margin-bottom:18px}
+nav button{flex:1;min-height:38px;border:0;border-radius:3px;background:transparent;color:var(--muted);font:600 11px/1 inherit;letter-spacing:.09em;cursor:pointer}
+nav button.on{background:var(--accent);color:#fff}
+[data-l]{display:none}[data-l].on{display:block}
+</style></head><body><div class="wrap">
+<nav>
+<button data-set="tr" class="on">TÜRKÇE</button><button data-set="en">ENGLISH</button><button data-set="de">DEUTSCH</button>
+</nav>
+<div data-l="tr" class="on">
+<h1>Destek</h1>
+<div class="card"><p>E-posta: <a href="mailto:dev.main.dragon@gmail.com">dev.main.dragon@gmail.com</a><br><span class="meta">Yanıt süresi: 1–2 iş günü</span></p></div>
+<h2>Sık sorulanlar</h2>
+<p><b>Aracım listede yok.</b> Marka, model, yıl ve motor kodunu yazıp e-posta gönderin; bir sonraki güncellemeye ekleyelim.</p>
+<p><b>Değerler ne kadar kesin?</b> Tepe değerler sağlıklı araçlar için tahminî kazanımlardır. Grafikteki eğriler bu tepe değerlerden türetilmiş temsilî çizimlerdir, dyno çıktısı değildir.</p>
+<p><b>Bayi numarası güncel değil.</b> Bize yazın, listeyi düzeltelim.</p>
+<p><b>Sıralamaya nasıl girerim?</b> Yazılımı yapan bayinize dyno sonucunuzu iletin, kayıt bizden geçer.</p>
+<p><b>Uygulama İngilizce açılıyor.</b> Alt kısımdaki dil düğmesinden Türkçe'yi seçin; tercih hatırlanır.</p>
+</div>
+<div data-l="en">
+<h1>Support</h1>
+<div class="card"><p>Email: <a href="mailto:dev.main.dragon@gmail.com">dev.main.dragon@gmail.com</a><br><span class="meta">Reply time: 1–2 business days</span></p></div>
+<h2>FAQ</h2>
+<p><b>My car is not listed.</b> Email the make, model, year and engine code and we will add it in the next update.</p>
+<p><b>How exact are the figures?</b> Peak values are estimated gains for healthy vehicles. The curves are representative drawings derived from those peaks, not dyno output.</p>
+<p><b>A dealer number is wrong.</b> Write to us and we will correct the list.</p>
+<p><b>How do I get on the leaderboard?</b> Send your dyno result to the dealer who did the tune; entries come through them.</p>
+<p><b>The app opens in the wrong language.</b> Use the language button at the bottom; your choice is remembered.</p>
+</div>
+<div data-l="de">
+<h1>Support</h1>
+<div class="card"><p>E-Mail: <a href="mailto:dev.main.dragon@gmail.com">dev.main.dragon@gmail.com</a><br><span class="meta">Antwortzeit: 1–2 Werktage</span></p></div>
+<h2>Häufige Fragen</h2>
+<p><b>Mein Fahrzeug fehlt.</b> Schicken Sie Marke, Modell, Baujahr und Motorcode; wir ergänzen es im nächsten Update.</p>
+<p><b>Wie genau sind die Werte?</b> Spitzenwerte sind geschätzte Zuwächse für gesunde Fahrzeuge. Die Kurven sind daraus abgeleitete Darstellungen, keine Prüfstandsmessung.</p>
+<p><b>Eine Händlernummer stimmt nicht.</b> Schreiben Sie uns, wir korrigieren die Liste.</p>
+<p><b>Wie komme ich in die Rangliste?</b> Reichen Sie Ihr Prüfstandsergebnis bei Ihrem Händler ein.</p>
+<p><b>Die App startet in der falschen Sprache.</b> Sprache unten umstellen; die Wahl wird gespeichert.</p>
+</div>
+</div>
+<script>
+(function(){
+  var k="gh.lang", btns=[].slice.call(document.querySelectorAll("nav button"));
+  function set(l){
+    [].forEach.call(document.querySelectorAll("[data-l]"),function(d){d.classList.toggle("on",d.dataset.l===l)});
+    btns.forEach(function(b){b.classList.toggle("on",b.dataset.set===l)});
+    document.documentElement.lang=l;
+    try{localStorage.setItem(k,l)}catch(e){}
+  }
+  var saved=null;
+  try{saved=localStorage.getItem(k)}catch(e){}
+  if(!saved){var n=(navigator.language||"en").slice(0,2).toLowerCase(); saved=["tr","en","de"].indexOf(n)>-1?n:"en";}
+  btns.forEach(function(b){b.onclick=function(){set(b.dataset.set)}});
+  set(saved);
+})();
+</script>
+</body></html>

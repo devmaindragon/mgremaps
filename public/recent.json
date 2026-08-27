@@ -1,0 +1,6 @@
+[
+  { "v": "BMW 320i G20", "s": 2, "gain": 170 },
+  { "v": "VW Golf 7 GTI", "s": 3, "gain": 160 },
+  { "v": "Skoda Octavia 1.6 TDI", "s": 2, "gain": 45 },
+  { "v": "Audi A3 1.4 TSI", "s": 2, "gain": 70 }
+]

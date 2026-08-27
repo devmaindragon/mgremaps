@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="tr"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MgRemaps — Gizlilik</title>
+<style>
+:root{--bg:#0b0e11;--card:#151a1f;--line:#272f38;--text:#f2f4f6;--muted:#7b8794;--accent:#d0202c;--btn:#181e25}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;line-height:1.6}
+.wrap{max-width:680px;margin:0 auto;padding:22px 14px 60px}
+h1{font-family:ui-monospace,Menlo,monospace;text-transform:uppercase;letter-spacing:.1em;font-size:15px;margin:0 0 4px}
+h2{font-size:11px;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);margin:22px 0 6px;font-weight:600}
+p,li{font-size:14px;color:var(--text)}
+ul{padding-left:18px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:11px;margin-top:12px}
+.meta{font-family:ui-monospace,Menlo,monospace;font-size:11px;color:var(--muted)}
+a{color:var(--accent)}
+nav{display:flex;gap:2px;background:var(--btn);border:1px solid var(--line);border-radius:3px;padding:2px;margin-bottom:18px}
+nav button{flex:1;min-height:38px;border:0;border-radius:3px;background:transparent;color:var(--muted);font:600 11px/1 inherit;letter-spacing:.09em;cursor:pointer}
+nav button.on{background:var(--accent);color:#fff}
+[data-l]{display:none}[data-l].on{display:block}
+</style></head><body><div class="wrap">
+<nav>
+<button data-set="tr" class="on">TÜRKÇE</button><button data-set="en">ENGLISH</button><button data-set="de">DEUTSCH</button>
+</nav>
+<div data-l="tr" class="on">
+<h1>Gizlilik Politikası</h1><p class="meta">Son güncelleme: 26.08.2026</p>
+<div class="card"><p><b>MgRemaps hiçbir kişisel veri toplamaz.</b> Hesap açmanız gerekmez, kayıt istenmez, konum, kişi listesi veya cihaz kimliği okunmaz.</p></div>
+<h2>Cihazda kalan veriler</h2><p>Seçtiğiniz dil tercihi yalnızca cihazınızın yerel deposunda saklanır. Bu bilgi bize gönderilmez, uygulamayı silince kaybolur.</p>
+<h2>Ağ bağlantısı</h2><p>Sıralama listesi GitHub üzerindeki herkese açık bir dosyadan okunur. Bu istek sırasında size ait bir tanımlayıcı gönderilmez.</p>
+<h2>Arama işlevi</h2><p>Bayi araması, telefon numarasını cihazınızın telefon uygulamasına aktarır. Aramayı siz başlatırsınız; görüşme bilgileri operatörünüz ile aranan kişi arasındadır, uygulama kaydetmez.</p>
+<h2>Üçüncü taraflar</h2><p>Reklam ağı, analitik veya izleme aracı kullanılmaz.</p>
+<h2>Çocuklar</h2><p>Uygulama veri toplamadığı için çocuklardan da veri toplamaz.</p>
+<h2>İletişim</h2><p>Sorularınız için destek sayfasındaki adresi kullanın.</p>
+</div>
+<div data-l="en">
+<h1>Privacy Policy</h1><p class="meta">Last updated: 26 Aug 2026</p>
+<div class="card"><p><b>MgRemaps collects no personal data.</b> No account, no sign-up, no access to location, contacts or device identifiers.</p></div>
+<h2>Data kept on your device</h2><p>Your language choice is stored in local storage on your device only. It is never sent to us and disappears when you delete the app.</p>
+<h2>Network</h2><p>The leaderboard is read from a public file on GitHub. No identifier of yours is sent with that request.</p>
+<h2>Calling a dealer</h2><p>Tapping Call hands the number to your phone app. You start the call; the call itself is between you, your carrier and the dealer. The app records nothing.</p>
+<h2>Third parties</h2><p>No advertising networks, analytics or tracking tools are used.</p>
+<h2>Children</h2><p>Since no data is collected, none is collected from children either.</p>
+<h2>Contact</h2><p>Use the address on the support page.</p>
+</div>
+<div data-l="de">
+<h1>Datenschutz</h1><p class="meta">Stand: 26.08.2026</p>
+<div class="card"><p><b>MgRemaps erhebt keine personenbezogenen Daten.</b> Kein Konto, keine Anmeldung, kein Zugriff auf Standort, Kontakte oder Gerätekennungen.</p></div>
+<h2>Daten auf dem Gerät</h2><p>Die Sprachwahl wird nur lokal auf dem Gerät gespeichert, nie an uns gesendet und beim Löschen der App entfernt.</p>
+<h2>Netzwerk</h2><p>Die Rangliste wird aus einer öffentlichen Datei auf GitHub gelesen. Dabei wird keine Kennung von Ihnen übertragen.</p>
+<h2>Anruf beim Händler</h2><p>Der Anruf-Button übergibt die Nummer an die Telefon-App. Sie starten den Anruf; die App speichert nichts.</p>
+<h2>Dritte</h2><p>Keine Werbenetzwerke, keine Analyse- oder Tracking-Werkzeuge.</p>
+<h2>Kinder</h2><p>Da keine Daten erhoben werden, auch keine von Kindern.</p>
+<h2>Kontakt</h2><p>Adresse auf der Support-Seite.</p>
+</div>
+</div>
+<script>
+(function(){
+  var k="gh.lang", btns=[].slice.call(document.querySelectorAll("nav button"));
+  function set(l){
+    [].forEach.call(document.querySelectorAll("[data-l]"),function(d){d.classList.toggle("on",d.dataset.l===l)});
+    btns.forEach(function(b){b.classList.toggle("on",b.dataset.set===l)});
+    document.documentElement.lang=l;
+    try{localStorage.setItem(k,l)}catch(e){}
+  }
+  var saved=null;
+  try{saved=localStorage.getItem(k)}catch(e){}
+  if(!saved){var n=(navigator.language||"en").slice(0,2).toLowerCase(); saved=["tr","en","de"].indexOf(n)>-1?n:"en";}
+  btns.forEach(function(b){b.onclick=function(){set(b.dataset.set)}});
+  set(saved);
+})();
+</script>
+</body></html>
