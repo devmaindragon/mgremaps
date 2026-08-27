@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useMemo, useState, useEffect } from "react";
-import { Gauge, Phone, Trophy, Search, X, ChevronDown, Car, MapPin, Globe, Lock, ChevronLeft, ChevronRight } from "lucide-react";
+import { Gauge, Phone, Trophy, Search, X, ChevronDown, Car, MapPin, Globe, Lock, ChevronLeft, ChevronRight, HelpCircle, ArrowRight } from "lucide-react";
 
 /* ============================================================
    1. THEME
@@ -46,7 +46,7 @@ const APP = {
 const STR = {
   tr: {
     code: "tr-TR",
-    nav: ["HESAPLAMA", "BAYİ", "SIRALAMA"],
+    nav: ["GÜÇ ARTIŞI", "BAYİ AĞIMIZ", "SÜRE TABLOSU"],
     pickVehicle: "ARAÇ SEÇ",
     pickHint: "Marka, model veya motor kodu ara",
     pickPrompt: "Başlamak için bir araç seç",
@@ -54,12 +54,15 @@ const STR = {
     pickBrand: "MARKA SEÇ",
     pickModel: "MODEL SEÇ",
     back: "GERİ",
-    recent: "SON YAPILAN ARAÇLAR",
-    wTitle: "MgRemaps — Asistan'a hoş geldiniz",
-    wBody1: "Uygulamamızda Stage 1 – Stage 2 – Stage 3 uygulamalarında aracınızın kazanacağı hp ve tork değerlerini, gereken modlarla beraber görebilirsiniz.",
-    wBody2: "Ayrıca son yapılan araçlar, bayilerin iletişim bilgileri ve 100-200 liderlik tablomuz da mevcut.",
+    recent: "ÖNE ÇIKAN ARAÇLAR",
+    notFound: "Aracınızı bulamıyor musunuz?",
+    notFoundBody: "Detaylı bilgi almak için bayilerimizle iletişime geçebilirsiniz.",
+    wLead: "Motor yazılımı sonrası aracınızın ne kazanacağını, ölçümlere dayalı olarak gösterir.",
+    wF1: "Stage 1, 2 ve 3 için hp ve tork eğrileri, gereken donanımla birlikte",
+    wF2: "Bayi ağımızın il bazında iletişim bilgileri, tek dokunuşla arama",
+    wF3: "100-200 km/h süre tablosu ve son yapılan araçlar",
+    wTitle: "MgRemaps Asistan'a hoş geldiniz",
     wGo: "BAŞLA",
-    vehicles: "araç",
     brandHint: "Marka seçerek başla",
     search: "Ara",
     noResult: "Sonuç yok. Aramayı kısalt.",
@@ -103,7 +106,7 @@ const STR = {
   },
   en: {
     code: "en-US",
-    nav: ["CALCULATION", "DEALERS", "BOARD"],
+    nav: ["POWER GAIN", "OUR DEALERS", "TIME TABLE"],
     pickVehicle: "SELECT VEHICLE",
     pickHint: "Search make, model or engine code",
     pickPrompt: "Select a vehicle to start",
@@ -111,12 +114,15 @@ const STR = {
     pickBrand: "SELECT BRAND",
     pickModel: "SELECT MODEL",
     back: "BACK",
-    recent: "RECENT BUILDS",
+    recent: "FEATURED VEHICLES",
+    notFound: "Can't find your vehicle?",
+    notFoundBody: "Contact our dealers for detailed information.",
+    wLead: "Shows what your vehicle gains after an ECU remap, based on measured results.",
+    wF1: "Power and torque curves for Stage 1, 2 and 3, with the hardware each needs",
+    wF2: "Dealer contacts by city, one-tap calling",
+    wF3: "100-200 km/h time table and recent builds",
     wTitle: "Welcome to MgRemaps — Assistant",
-    wBody1: "See the hp and torque your vehicle gains with Stage 1, Stage 2 and Stage 3 remaps, along with the hardware each one needs.",
-    wBody2: "Recent builds, dealer contact details and our 100-200 km/h leaderboard are here too.",
     wGo: "START",
-    vehicles: "vehicles",
     brandHint: "Start by choosing a brand",
     search: "Search",
     noResult: "No match. Try a shorter search.",
@@ -160,7 +166,7 @@ const STR = {
   },
   de: {
     code: "de-DE",
-    nav: ["BERECHNUNG", "HÄNDLER", "RANGLISTE"],
+    nav: ["LEISTUNGSPLUS", "HÄNDLERNETZ", "ZEITTABELLE"],
     pickVehicle: "FAHRZEUG WÄHLEN",
     pickHint: "Marke, Modell oder Motorcode suchen",
     pickPrompt: "Fahrzeug wählen, um zu starten",
@@ -168,12 +174,15 @@ const STR = {
     pickBrand: "MARKE WÄHLEN",
     pickModel: "MODELL WÄHLEN",
     back: "ZURÜCK",
-    recent: "LETZTE UMBAUTEN",
+    recent: "AUSGEWÄHLTE FAHRZEUGE",
+    notFound: "Fahrzeug nicht gefunden?",
+    notFoundBody: "Für Details wenden Sie sich an unsere Händler.",
+    wLead: "Zeigt auf Basis gemessener Ergebnisse, was Ihr Fahrzeug nach dem Chiptuning gewinnt.",
+    wF1: "Leistungs- und Drehmomentkurven für Stufe 1, 2 und 3 samt nötiger Hardware",
+    wF2: "Händlerkontakte nach Stadt, Anruf mit einem Tipp",
+    wF3: "100-200 km/h Zeittabelle und letzte Umbauten",
     wTitle: "Willkommen bei MgRemaps — Assistent",
-    wBody1: "Sehen Sie, wie viel PS und Drehmoment Ihr Fahrzeug mit Stufe 1, Stufe 2 und Stufe 3 gewinnt — samt der jeweils nötigen Hardware.",
-    wBody2: "Ebenfalls dabei: letzte Umbauten, Kontaktdaten der Händler und unsere 100-200 km/h Rangliste.",
     wGo: "LOSLEGEN",
-    vehicles: "Fahrzeuge",
     brandHint: "Zuerst eine Marke wählen",
     search: "Suchen",
     noResult: "Kein Treffer. Suche kürzen.",
@@ -798,12 +807,14 @@ const VEHICLES = [
 const brandOf = (g) => g.split(" ")[0];
 
 /* Son yapılan araçlar. public/recent.json aynı biçimde, oradan güncellenir.
-   Kaç kayıt olursa olsun şerit yatay kaydırılır. */
+   Kaç kayıt olursa olsun şerit yatay kaydırılır.
+   l: seviye yazısını elle vermek için (örn. "STAGE 3 · IS20"). Yoksa s'ten üretilir.
+   img: public/recent/ altındaki görselin yolu. Dosya yoksa araç ikonu çıkar. */
 const RECENT_FALLBACK = [
-  { v: "BMW 320i G20", s: 2, gain: 170 },
-  { v: "VW Golf 7 GTI", s: 3, gain: 160 },
-  { v: "Skoda Octavia 1.6 TDI", s: 2, gain: 45 },
-  { v: "Audi A3 1.4 TSI", s: 2, gain: 70 },
+  { v: "BMW 320i G20", s: 2, gain: 170, img: "./recent/1.jpg" },
+  { v: "VW Golf 7 1.4 TSI", s: 3, l: "STAGE 3 · IS20", gain: 155, img: "./recent/2.jpg" },
+  { v: "Audi S3 8Y", s: 2, gain: 80, img: "./recent/3.jpg" },
+  { v: "BMW 320i G20", s: 1, gain: 110, img: "./recent/4.jpg" },
 ];
 
 const GROUPS = [
@@ -1225,6 +1236,7 @@ function PowerTab({ S, veh, setVeh }) {
   const { fmt } = useF();
   const [pick, setPick] = useState(false);
   const [brand, setBrand] = useState(null);
+  const [help, setHelp] = useState(false);
   const [stage, setStage] = useState(2); // 0 stok, 1 s1, 2 s2, 3 büyük turbo
   const [q, setQ] = useState("");
 
@@ -1459,19 +1471,45 @@ function PowerTab({ S, veh, setVeh }) {
 
   return (
     <>
-      <div
+      <button
+        onClick={() => setHelp((v) => !v)}
         style={{
-          fontSize: 10,
-          lineHeight: 1.45,
-          color: t.warn,
+          textAlign: "left",
+          width: "100%",
           background: t.btn,
           border: `1px solid ${t.line}`,
           borderRadius: t.r.btn,
-          padding: "7px 9px",
+          padding: "8px 9px",
+          cursor: "pointer",
+          display: "grid",
+          gap: 5,
         }}
       >
-        {S.notice}
-      </div>
+        <span
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: 6,
+            fontSize: 11,
+            fontWeight: 600,
+            color: t.warn,
+          }}
+        >
+          <HelpCircle size={13} />
+          {S.notFound}
+          <ChevronDown
+            size={13}
+            style={{
+              marginLeft: "auto",
+              transform: help ? "rotate(180deg)" : "none",
+              transition: "transform .15s",
+            }}
+          />
+        </span>
+        {help && (
+          <span style={{ fontSize: 11, lineHeight: 1.45, color: t.text }}>{S.notFoundBody}</span>
+        )}
+      </button>
 
       <Card style={{ padding: 0 }} hot={!veh}>
         <PickRow
@@ -1527,7 +1565,6 @@ function PowerTab({ S, veh, setVeh }) {
             <PickRow
               key={b}
               title={b}
-              sub={`${VEHICLES.filter((v) => brandOf(v.g) === b).length} ${S.vehicles}`}
               right={<ChevronRight size={15} color={t.muted} />}
               onClick={() => setBrand(b)}
             />
@@ -1821,9 +1858,35 @@ function RecentStrip({ S }) {
               background: t.card,
               border: `1px solid ${t.line}`,
               borderRadius: t.r.card,
-              padding: "7px 8px",
+              overflow: "hidden",
             }}
           >
+            <div
+              style={{
+                aspectRatio: "16 / 9",
+                background: t.btn,
+                borderBottom: `1px solid ${t.line}`,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                overflow: "hidden",
+              }}
+            >
+              {r.img ? (
+                <img
+                  src={r.img}
+                  alt={r.v}
+                  loading="lazy"
+                  style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
+                  onError={(e) => {
+                    e.currentTarget.style.display = "none";
+                  }}
+                />
+              ) : (
+                <Car size={17} color={t.line} />
+              )}
+            </div>
+            <div style={{ padding: "7px 8px 8px" }}>
             <div
               style={{
                 fontSize: 10,
@@ -1849,7 +1912,7 @@ function RecentStrip({ S }) {
                 textOverflow: "ellipsis",
               }}
             >
-              {stageLabel(r.s)}
+              {r.l || stageLabel(r.s)}
             </div>
             <div
               style={{
@@ -1864,8 +1927,167 @@ function RecentStrip({ S }) {
               +{fmt(r.gain)}
               <span style={{ fontSize: 8.5, color: t.muted }}> {S.hp}</span>
             </div>
+            </div>
           </div>
         ))}
+      </div>
+    </div>
+  );
+}
+
+function Welcome({ S, open, onClose }) {
+  const t = useT();
+  if (!open) return null;
+  const rows = [
+    [Gauge, S.nav[0], S.wF1],
+    [Phone, S.nav[1], S.wF2],
+    [Trophy, S.nav[2], S.wF3],
+  ];
+  return (
+    <div
+      style={{
+        position: "fixed",
+        inset: 0,
+        zIndex: 60,
+        background: t.bg,
+        display: "flex",
+        flexDirection: "column",
+        paddingTop: "env(safe-area-inset-top)",
+        paddingBottom: "env(safe-area-inset-bottom)",
+      }}
+    >
+      <div
+        style={{
+          flex: 1,
+          overflowY: "auto",
+          padding: "26px 18px 18px",
+          maxWidth: 420,
+          width: "100%",
+          margin: "0 auto",
+        }}
+      >
+        {/* marka bloğu */}
+        <div style={{ display: "flex", alignItems: "center", gap: 9, marginBottom: 20 }}>
+          <span style={{ width: 3, height: 30, background: t.accent, display: "block" }} />
+          <span
+            style={{
+              fontFamily: MONO,
+              fontSize: 17,
+              fontWeight: 800,
+              letterSpacing: ".16em",
+              color: t.text,
+            }}
+          >
+            MGREMAPS
+          </span>
+        </div>
+
+        <h1
+          style={{
+            margin: "0 0 8px",
+            fontSize: 21,
+            lineHeight: 1.25,
+            letterSpacing: "-.02em",
+            color: t.text,
+            fontWeight: 800,
+          }}
+        >
+          {S.wTitle}
+        </h1>
+        <p style={{ margin: "0 0 20px", fontSize: 13, lineHeight: 1.55, color: t.muted }}>
+          {S.wLead}
+        </p>
+
+        <div style={{ display: "grid", gap: 6 }}>
+          {rows.map(([I, title, desc]) => (
+            <div
+              key={title}
+              style={{
+                display: "flex",
+                gap: 10,
+                alignItems: "flex-start",
+                background: t.card,
+                border: `1px solid ${t.line}`,
+                borderRadius: t.r.card,
+                padding: 11,
+              }}
+            >
+              <span
+                style={{
+                  flexShrink: 0,
+                  width: 30,
+                  height: 30,
+                  borderRadius: t.r.btn,
+                  background: t.btn,
+                  border: `1px solid ${t.line}`,
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                <I size={15} color={t.accent} />
+              </span>
+              <span style={{ minWidth: 0 }}>
+                <span
+                  style={{
+                    display: "block",
+                    fontSize: 10,
+                    fontWeight: 700,
+                    letterSpacing: ".09em",
+                    color: t.text,
+                    textTransform: "uppercase",
+                  }}
+                >
+                  {title}
+                </span>
+                <span
+                  style={{
+                    display: "block",
+                    fontSize: 11,
+                    lineHeight: 1.45,
+                    color: t.muted,
+                    marginTop: 3,
+                  }}
+                >
+                  {desc}
+                </span>
+              </span>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div
+        style={{
+          padding: "10px 18px 16px",
+          maxWidth: 420,
+          width: "100%",
+          margin: "0 auto",
+          borderTop: `1px solid ${t.line}`,
+        }}
+      >
+        <button
+          onClick={onClose}
+          style={{
+            width: "100%",
+            minHeight: 48,
+            border: 0,
+            borderRadius: t.r.btn,
+            background: t.accent,
+            color: "#fff",
+            fontSize: 12,
+            fontWeight: 800,
+            letterSpacing: ".12em",
+            cursor: "pointer",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            gap: 8,
+          }}
+        >
+          {S.wGo}
+          <ArrowRight size={15} />
+        </button>
       </div>
     </div>
   );
@@ -1943,8 +2165,18 @@ export default function App() {
               items={S.nav.map((n, i) => {
                 const I = NAV_ICONS[i];
                 return (
-                  <span key={n} style={{ display: "flex", alignItems: "center", gap: 5 }}>
-                    <I size={13} />
+                  <span
+                    key={n}
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: 4,
+                      fontSize: 9.5,
+                      letterSpacing: ".04em",
+                      whiteSpace: "nowrap",
+                    }}
+                  >
+                    <I size={12} />
                     {n}
                   </span>
                 );
@@ -2006,20 +2238,14 @@ export default function App() {
           </div>
         </div>
 
-        <Modal
+        <Welcome
+          S={S}
           open={welcome}
-          title={S.wTitle}
-          closeLabel={S.wGo}
           onClose={() => {
             setWelcome(false);
             markWelcome();
           }}
-        >
-          <div style={{ padding: t.pad, display: "grid", gap: 10 }}>
-            <p style={{ margin: 0, fontSize: 13, lineHeight: 1.55, color: t.text }}>{S.wBody1}</p>
-            <p style={{ margin: 0, fontSize: 13, lineHeight: 1.55, color: t.text }}>{S.wBody2}</p>
-          </div>
-        </Modal>
+        />
 
         <Modal
           open={langOpen}

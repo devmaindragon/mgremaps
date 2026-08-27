@@ -1,0 +1,4 @@
+Son yapilan arac gorselleri buraya: 1.jpg, 2.jpg, 3.jpg, 4.jpg ...
+Onerilen boyut: 640x360 (16:9). Kart 16:9 oraninda kirpar, ortayi tut.
+Dosya yoksa veya yuklenemezse kartta arac ikonu gorunur.
+Yazi ve gorsel yolunu public/recent.json icinden degistir.

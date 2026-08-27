@@ -1,6 +1,6 @@
 [
-  { "v": "BMW 320i G20", "s": 2, "gain": 170 },
-  { "v": "VW Golf 7 GTI", "s": 3, "gain": 160 },
-  { "v": "Skoda Octavia 1.6 TDI", "s": 2, "gain": 45 },
-  { "v": "Audi A3 1.4 TSI", "s": 2, "gain": 70 }
+  { "v": "BMW 320i G20", "s": 2, "gain": 170, "img": "./recent/1.jpg" },
+  { "v": "VW Golf 7 1.4 TSI", "s": 3, "l": "STAGE 3 · IS20", "gain": 155, "img": "./recent/2.jpg" },
+  { "v": "Audi S3 8Y", "s": 2, "gain": 80, "img": "./recent/3.jpg" },
+  { "v": "BMW 320i G20", "s": 1, "gain": 110, "img": "./recent/4.jpg" }
 ]
