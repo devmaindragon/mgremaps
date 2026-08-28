@@ -57,6 +57,7 @@ const STR = {
     recent: "ÖNE ÇIKAN ARAÇLAR",
     notFound: "Aracınızı bulamıyor musunuz?",
     notFoundBody: "Detaylı bilgi almak için bayilerimizle iletişime geçebilirsiniz.",
+    notFoundOld: "2010 yılı öncesi araçlarınız için bayilerimizle iletişime geçebilirsiniz.",
     wLead: "Motor yazılımı sonrası aracınızın ne kazanacağını, ölçümlere dayalı olarak gösterir.",
     wF1: "Stage 1, 2 ve 3 için hp ve tork eğrileri, gereken donanımla birlikte",
     wF2: "Bayi ağımızın il bazında iletişim bilgileri, tek dokunuşla arama",
@@ -117,6 +118,7 @@ const STR = {
     recent: "FEATURED VEHICLES",
     notFound: "Can't find your vehicle?",
     notFoundBody: "Contact our dealers for detailed information.",
+    notFoundOld: "For vehicles built before 2010, please contact our dealers.",
     wLead: "Shows what your vehicle gains after an ECU remap, based on measured results.",
     wF1: "Power and torque curves for Stage 1, 2 and 3, with the hardware each needs",
     wF2: "Dealer contacts by city, one-tap calling",
@@ -177,6 +179,7 @@ const STR = {
     recent: "AUSGEWÄHLTE FAHRZEUGE",
     notFound: "Fahrzeug nicht gefunden?",
     notFoundBody: "Für Details wenden Sie sich an unsere Händler.",
+    notFoundOld: "Für Fahrzeuge vor Baujahr 2010 wenden Sie sich bitte an unsere Händler.",
     wLead: "Zeigt auf Basis gemessener Ergebnisse, was Ihr Fahrzeug nach dem Chiptuning gewinnt.",
     wF1: "Leistungs- und Drehmomentkurven für Stufe 1, 2 und 3 samt nötiger Hardware",
     wF2: "Händlerkontakte nach Stadt, Anruf mit einem Tipp",
@@ -709,6 +712,64 @@ const VEHICLES = [
     hp: [320, 350, 380], n2: "Downpipe", ...RPM,
     s3: { l: "2260s + Dsg Yazılımı", hp: 450, ...RPM3 } },
 
+  { id: "audi-rs3-2-5-tfsi-cepa-340", g: "Audi RS3", m: "2.5 TFSI CEPA", y: "8P", e: "340 hp stok", d: false,
+    hp: [340, 410, 440], n2: "Downpipe", ...RPM,
+    s3: { l: "Hybrid Turbo + Yazılım", hp: 600, plus: true, ...RPM3 } },
+  { id: "audi-rs3-2-5-tfsi-daza-czgb-400", g: "Audi RS3", m: "2.5 TFSI DAZA/CZGB", y: "8V", e: "400 hp stok", d: false,
+    hp: [400, 480, 530], n2: "Downpipe", ...RPM,
+    s3: { l: "Full Frame / Hybrid Turbo + TCU", hp: 750, plus: true, ...RPM3 } },
+
+  { id: "audi-s3-2-0-tfsi-ea888-gen4-310", g: "Audi A3", m: "S3 2.0 TFSI EA888 Gen4", y: "8Y", e: "310 hp stok", d: false,
+    hp: [310, 380, 420], n2: "Downpipe", ...RPM,
+    s3: { l: "Hybrid Turbo + TCU", hp: 550, plus: true, ...RPM3 } },
+
+  { id: "audi-rs3-2-5-tfsi-dnwa-400", g: "Audi RS3", m: "2.5 TFSI DNWA", y: "8Y", e: "400 hp stok", d: false,
+    hp: [400, 480, 530], n2: "Downpipe", ...RPM },
+
+  { id: "audi-s4-s5-3-0-tfsi-supercharged-333", g: "Audi S4 / S5", m: "3.0 TFSI Supercharged", y: "B8 / B8.5", e: "333 hp stok", d: false,
+    hp: [333, 430, 480], n2: "Dual Pulley + Soğutma", ...RPM },
+
+  { id: "audi-rs4-rs5-4-2-fsi-v8-450", g: "Audi RS4 / RS5", m: "4.2 FSI V8", y: "B8", e: "450 hp stok", d: false,
+    hp: [450, 470, 490], n2: "Test Pipe / Decat", ...RPM },
+
+  { id: "audi-s4-s5-3-0-tfsi-ea839-354", g: "Audi S4 / S5", m: "3.0 TFSI EA839", y: "B9", e: "354 hp stok", d: false,
+    hp: [354, 430, 480], n2: "Downpipe", ...RPM },
+
+  { id: "audi-rs4-rs5-2-9-tfsi-ea839-450", g: "Audi RS4 / RS5", m: "2.9 TFSI EA839", y: "B9", e: "450 hp stok", d: false,
+    hp: [450, 530, 580], n2: "Downpipe", ...RPM },
+
+  { id: "audi-s6-s7-4-0-tfsi-v8-420", g: "Audi S6 / S7", m: "4.0 TFSI V8", y: "C7", e: "420 hp stok", d: false,
+    hp: [420, 550, 600], n2: "Downpipe", ...RPM },
+
+  { id: "audi-rs6-rs7-4-0-tfsi-v8-560", g: "Audi RS6 / RS7", m: "4.0 TFSI V8", y: "C7", e: "560 hp stok", d: false,
+    hp: [560, 680, 730], n2: "Downpipe", ...RPM },
+
+  { id: "audi-s6-s7-2-9-tfsi-v6-450", g: "Audi S6 / S7", m: "2.9 TFSI V6", y: "C8", e: "450 hp stok", d: false,
+    hp: [450, 530, 580], n2: "Downpipe", ...RPM },
+
+  { id: "audi-rs6-rs7-4-0-tfsi-v8-600", g: "Audi RS6 / RS7", m: "4.0 TFSI V8", y: "C8", e: "600 hp stok", d: false,
+    hp: [600, 700, 750], n2: "Downpipe", ...RPM },
+
+  { id: "audi-tts-2-0-tfsi-ea113-272", g: "Audi TT", m: "S 2.0 TFSI EA113", y: "8J", e: "272 hp stok", d: false,
+    hp: [272, 320, 350], n2: "Downpipe", ...RPM },
+
+  { id: "audi-ttrs-2-5-tfsi-cepa-340", g: "Audi TTRS", m: "2.5 TFSI CEPA", y: "8J", e: "340 hp stok", d: false,
+    hp: [340, 410, 440], n2: "Downpipe", ...RPM },
+
+  { id: "audi-tts-2-0-tfsi-ea888-gen3-310", g: "Audi TT", m: "S 2.0 TFSI EA888 Gen3", y: "8S", e: "310 hp stok", d: false,
+    hp: [310, 360, 400], n2: "Downpipe", ...RPM },
+
+  { id: "audi-ttrs-2-5-tfsi-daza-400", g: "Audi TTRS", m: "2.5 TFSI DAZA", y: "8S", e: "400 hp stok", d: false,
+    hp: [400, 480, 530], n2: "Downpipe", ...RPM },
+
+  { id: "audi-sq5-3-0-tfsi-supercharged-354", g: "Audi SQ5", m: "3.0 TFSI Supercharged", y: "8R", e: "354 hp stok", d: false,
+    hp: [354, 430, 480], n2: "Dual Pulley + Soğutma", ...RPM },
+  { id: "audi-sq5-3-0-tfsi-ea839-354", g: "Audi SQ5", m: "3.0 TFSI EA839", y: "FY (B9)", e: "354 hp stok", d: false,
+    hp: [354, 430, 480], n2: "Downpipe", ...RPM },
+
+  { id: "audi-rsq8-4-0-tfsi-v8-600", g: "Audi RSQ8", m: "4.0 TFSI V8", y: "4M", e: "600 hp stok", d: false,
+    hp: [600, 700, 750], n2: "Downpipe", ...RPM },
+
   { id: "bmw-116ed-1-6-n47-116", g: "BMW 1 Serisi", m: "116ed", y: "F20", e: "1.6 N47", d: true,
     hp: [116, 150, 160], n2: "Downpipe", ...RPM },
   { id: "bmw-116i-1-6-n13-136", g: "BMW 1 Serisi", m: "116i", y: "F20", e: "1.6 N13", d: false,
@@ -773,48 +834,94 @@ const VEHICLES = [
     hp: [136, 160, 180], n2: "Downpipe", ...RPM },
   { id: "bmw-x1-sdrive16d-1-5-b38d-116", g: "BMW X1", m: "X1 sDrive16d", y: "2015-2022", e: "1.5 B38d", d: true,
     hp: [116, 150, null], ...RPM },
+  { id: "bmw-x1-xdrive20d-2-0-n47-b47-184", g: "BMW X1", m: "X1 xDrive20d", y: "2015-2022", e: "2.0 N47 / B47", d: true,
+    hp: [184, 220, 240], n2: "Downpipe", ...RPM,
+    s3: { l: "Oem Hybrid + ZF8 Yazılımı", hp: 280, ...RPM3 } },
 
   { id: "bmw-x2-sdrive18i-1-5-b38-136", g: "BMW X2", m: "X2 sDrive18i", y: "2018-2023", e: "1.5 B38", d: false,
     hp: [136, 160, 180], n2: "Downpipe", ...RPM },
+  { id: "bmw-x2-sdrive16d-1-5-b38d-116", g: "BMW X2", m: "X2 sDrive16d", y: "2015-2022", e: "1.5 B38d", d: true,
+    hp: [116, 150, null], ...RPM },
+  { id: "bmw-x2-xdrive20d-2-0-n47-b47-184", g: "BMW X2", m: "X2 xDrive20d", y: "2015-2022", e: "2.0 N47 / B47", d: true,
+    hp: [184, 220, 240], n2: "Downpipe", ...RPM,
+    s3: { l: "Oem Hybrid + ZF8 Yazılımı", hp: 280, ...RPM3 } },
 
   { id: "bmw-x3-sdrive20i-1-6-n20-170", g: "BMW X3", m: "X3 sDrive20i", y: "2014-2017", e: "1.6 N20", d: false,
     hp: [170, 220, 240], n2: "Downpipe", ...RPM },
+  { id: "bmw-x3-sdrive20i-1-6-b48-170", g: "BMW X3", m: "X3 sDrive20i", y: "2017-202x", e: "1.6 B48", d: false,
+    hp: [170, 280, 340], n2: "Downpipe", ...RPM },
   { id: "bmw-x3-xdrive20d-2-0-n47-b47-184", g: "BMW X3", m: "X3 xDrive20d", y: "2010-2017", e: "2.0 N47 / B47", d: true,
     hp: [184, 220, 240], n2: "Downpipe", ...RPM,
+    s3: { l: "Oem Hybrid + ZF8 Yazılımı", hp: 280, ...RPM3 } },
+
+  { id: "bmw-x4-xdrive20d-2-0-b47-190", g: "BMW X4", m: "X4 xDrive20d", y: "2014-2018", e: "2.0 B47", d: true,
+    hp: [190, 220, 240], n2: "Downpipe", ...RPM,
     s3: { l: "Oem Hybrid + ZF8 Yazılımı", hp: 280, ...RPM3 } },
 
   { id: "bmw-x5-xdrive25d-2-0-n47-b47-218", g: "BMW X5", m: "X5 xDrive25d", y: "2013-2018", e: "2.0 N47 / B47", d: true,
     hp: [218, 270, 285], n2: "Downpipe", ...RPM },
 
-  { id: "mini-cooper-d-1-6-n47-112", g: "Mini", m: "Cooper D", y: "2010-2014", e: "1.6 N47", d: true,
-    hp: [112, 150, 160], n2: "Downpipe", ...RPM },
-  { id: "mini-cooper-s-1-6-n18-184", g: "Mini", m: "Cooper S", y: "2010-2016", e: "1.6 N18", d: false,
-    hp: [184, 215, 235], n2: "Downpipe + Intercooler", ...RPM,
-    s3: { l: "JCW Turbo + Yazılım", hp: 280, ...RPM3 } },
-  { id: "mini-jcw-1-6-n14-n18-211", g: "Mini", m: "JCW", y: "2008-2014", e: "1.6 N14/N18", d: false,
-    hp: [211, 250, 270], n2: "Downpipe + Intercooler", ...RPM,
-    s3: { l: "Oem Hybrid Turbo", hp: 300, ...RPM3 } },
-  { id: "mini-cooper-suv-1-5-b38-136", g: "Mini", m: "Cooper SUV", y: "2014-202x", e: "1.5 B38", d: false,
-    hp: [136, 160, 180], n2: "Downpipe", ...RPM },
-  { id: "mini-coopers-suv-2-0-b48-192", g: "Mini", m: "CooperS SUV", y: "2014-202x", e: "2.0 B48", d: false,
-    hp: [192, 260, 280], n2: "Downpipe + Sport Cooling", ...RPM,
-    s3: { l: "IMS / Big Turbo + Şanzıman Yaz.", hp: 350, ...RPM3 } },
-  { id: "mini-jcw-suv-2-0-b48-231", g: "Mini", m: "JCW SUV", y: "2015-202x", e: "2.0 B48", d: false,
-    hp: [231, 300, 330], n2: "Downpipe + Sport Cooling", ...RPM,
-    s3: { l: "Big Turbo + Şanzıman Yaz.", hp: 400, ...RPM3 } },
-];
+  { id: "bmw-x6-xdrive40d-3-0-nx-313", g: "BMW X6", m: "X6 xDrive40d", y: "2013-2018", e: "3.0 Nx", d: true,
+    hp: [313, 360, 380], n2: "Downpipe", ...RPM },
 
-const brandOf = (g) => g.split(" ")[0];
-
-/* Son yapılan araçlar. public/recent.json aynı biçimde, oradan güncellenir.
-   Kaç kayıt olursa olsun şerit yatay kaydırılır.
-   l: seviye yazısını elle vermek için (örn. "STAGE 3 · IS20"). Yoksa s'ten üretilir.
-   img: public/recent/ altındaki görselin yolu. Dosya yoksa araç ikonu çıkar. */
-const RECENT_FALLBACK = [
-  { v: "BMW 320i G20", s: 2, gain: 170, img: "./recent/1.jpg" },
-  { v: "VW Golf 7 1.4 TSI", s: 3, l: "STAGE 3 · IS20", gain: 155, img: "./recent/2.jpg" },
-  { v: "Audi S3 8Y", s: 2, gain: 80, img: "./recent/3.jpg" },
-  { v: "BMW 320i G20", s: 1, gain: 110, img: "./recent/4.jpg" },
+  { id: "bmw-m-1m-coupe-3-0-tt-n54-340", g: "BMW M", m: "1M Coupe", y: "E82", e: "3.0 TT N54", d: false,
+    hp: [340, 375, 400], n2: "Downpipe", ...RPM },
+  { id: "bmw-m-m135i-3-0-t-n55-320", g: "BMW M", m: "M135i", y: "F20", e: "3.0 T N55", d: false,
+    hp: [320, 365, 385], n2: "Downpipe", ...RPM,
+    s3: { l: "Pure Turbo Serisi", hp: 450, plus: true, ...RPM3 } },
+  { id: "bmw-m-m140i-3-0-t-b58-340", g: "BMW M", m: "M140i", y: "F20 LCI", e: "3.0 T B58", d: false,
+    hp: [340, 400, 420], n2: "Downpipe", ...RPM,
+    s3: { l: "Pure 600/800 + xHP ZF8", hp: 600, plus: true, ...RPM3 } },
+  { id: "bmw-m-m235i-3-0-t-n55-320", g: "BMW M", m: "M235i", y: "F22", e: "3.0 T N55", d: false,
+    hp: [320, 365, 385], n2: "Downpipe", ...RPM,
+    s3: { l: "Pure Turbo Serisi", hp: 450, plus: true, ...RPM3 } },
+  { id: "bmw-m-m240i-3-0-t-b58-340", g: "BMW M", m: "M240i", y: "F22 LCI", e: "3.0 T B58", d: false,
+    hp: [340, 400, 420], n2: "Downpipe", ...RPM,
+    s3: { l: "Pure 600/800 + xHP ZF8", hp: 600, plus: true, ...RPM3 } },
+  { id: "bmw-m-m2-3-0-t-n55-370", g: "BMW M", m: "M2", y: "F87", e: "3.0 T N55", d: false,
+    hp: [370, 410, 430], n2: "Downpipe", ...RPM },
+  { id: "bmw-m-m2-competition-3-0-tt-s55-410", g: "BMW M", m: "M2 Competition", y: "F87", e: "3.0 TT S55", d: false,
+    hp: [410, 500, 530], n2: "Downpipe", ...RPM,
+    s3: { l: "Oem Hybrid + DCT Yazılımı", hp: 700, plus: true, ...RPM3 } },
+  { id: "bmw-m-m2-3-0-tt-s58-460", g: "BMW M", m: "M2", y: "G87", e: "3.0 TT S58", d: false,
+    hp: [460, 550, 600], n2: "Downpipe", ...RPM,
+    s3: { l: "Hybrid Turbo + xHP ZF8", hp: 800, plus: true, ...RPM3 } },
+  { id: "bmw-m-m3-4-0-v8-s65-420", g: "BMW M", m: "M3", y: "E90 / E92", e: "4.0 V8 S65", d: false,
+    hp: [420, 435, 450], n2: "Test Pipe / Decat", ...RPM },
+  { id: "bmw-m-m3-3-0-tt-s55-431", g: "BMW M", m: "M3", y: "F80", e: "3.0 TT S55", d: false,
+    hp: [431, 500, 530], n2: "Downpipe", ...RPM,
+    s3: { l: "Oem Hybrid + DCT Yazılımı", hp: 700, plus: true, ...RPM3 } },
+  { id: "bmw-m-m340i-3-0-t-b58-374", g: "BMW M", m: "M340i", y: "G20", e: "3.0 T B58", d: false,
+    hp: [374, 440, 470], n2: "Downpipe", ...RPM,
+    s3: { l: "Pure 800 + xHP ZF8", hp: 650, plus: true, ...RPM3 } },
+  { id: "bmw-m-m3-comp-3-0-tt-s58-510", g: "BMW M", m: "M3 Comp.", y: "G80", e: "3.0 TT S58", d: false,
+    hp: [510, 600, 650], n2: "Downpipe", ...RPM },
+  { id: "bmw-m-m4-3-0-tt-s55-431", g: "BMW M", m: "M4", y: "F82", e: "3.0 TT S55", d: false,
+    hp: [431, 500, 530], n2: "Downpipe", ...RPM,
+    s3: { l: "Oem Hybrid + DCT Yazılımı", hp: 700, plus: true, ...RPM3 } },
+  { id: "bmw-m-m440i-3-0-t-b58-374", g: "BMW M", m: "M440i", y: "G22", e: "3.0 T B58", d: false,
+    hp: [374, 440, 470], n2: "Downpipe", ...RPM,
+    s3: { l: "Pure 800 + xHP ZF8", hp: 650, plus: true, ...RPM3 } },
+  { id: "bmw-m-m4-comp-3-0-tt-s58-510", g: "BMW M", m: "M4 Comp.", y: "G82", e: "3.0 TT S58", d: false,
+    hp: [510, 600, 650], n2: "Downpipe", ...RPM },
+  { id: "bmw-m-m5-4-4-tt-s63-560", g: "BMW M", m: "M5", y: "F10", e: "4.4 TT S63", d: false,
+    hp: [560, 650, 700], n2: "Downpipe", ...RPM,
+    s3: { l: "Hybrid Turbo + DCT Yazılımı", hp: 850, plus: true, ...RPM3 } },
+  { id: "bmw-m-m550i-4-4-tt-n63-530", g: "BMW M", m: "M550i", y: "G30", e: "4.4 TT N63", d: false,
+    hp: [530, 600, 640], n2: "Downpipe", ...RPM },
+  { id: "bmw-m-m5-comp-4-4-tt-s63-625", g: "BMW M", m: "M5 Comp.", y: "F90", e: "4.4 TT S63", d: false,
+    hp: [625, 700, 750], n2: "Downpipe", ...RPM },
+  { id: "bmw-m-m6-4-4-tt-s63-560", g: "BMW M", m: "M6", y: "F12 / F13", e: "4.4 TT S63", d: false,
+    hp: [560, 650, 700], n2: "Downpipe", ...RPM,
+    s3: { l: "Hybrid Turbo + DCT Yazılımı", hp: 850, plus: true, ...RPM3 } },
+  { id: "bmw-m-m8-comp-4-4-tt-s63-625", g: "BMW M", m: "M8 Comp.", y: "F92", e: "4.4 TT S63", d: false,
+    hp: [625, 700, 750], n2: "Downpipe", ...RPM },
+  { id: "bmw-m-x3-m-x4-m-3-0-tt-s58-510", g: "BMW M", m: "X3 M / X4 M", y: "F97 / F98", e: "3.0 TT S58", d: false,
+    hp: [510, 600, 650], n2: "Downpipe", ...RPM },
+  { id: "bmw-m-x5-m-x6-m-4-4-tt-s63-575", g: "BMW M", m: "X5 M / X6 M", y: "F85 / F86", e: "4.4 TT S63", d: false,
+    hp: [575, 650, 700], n2: "Downpipe", ...RPM },
+  { id: "bmw-m-x5-m-x6-m-4-4-tt-s63-625", g: "BMW M", m: "X5 M / X6 M", y: "F95 / F96", e: "4.4 TT S63", d: false,
+    hp: [625, 700, 750], n2: "Downpipe", ...RPM },
 ];
 
 const GROUPS = [
@@ -850,6 +957,14 @@ const GROUPS = [
   "Audi A5",
   "Audi A6",
   "Audi TT",
+  "Audi RS3",
+  "Audi S4 / S5",
+  "Audi RS4 / RS5",
+  "Audi S6 / S7",
+  "Audi RS6 / RS7",
+  "Audi TTRS",
+  "Audi SQ5",
+  "Audi RSQ8",
   "BMW 1 Serisi",
   "BMW 2 Serisi",
   "BMW 3 Serisi",
@@ -858,8 +973,10 @@ const GROUPS = [
   "BMW X1",
   "BMW X2",
   "BMW X3",
+  "BMW X4",
   "BMW X5",
-  "Mini",
+  "BMW X6",
+  "BMW M",
 ];
 
 const BRANDS = GROUPS.map(brandOf).filter((b, i, a) => a.indexOf(b) === i);
@@ -1292,7 +1409,7 @@ function PowerTab({ S, veh, setVeh }) {
       { label: S.stock, i: 0, hp: veh.hp[0], nm: NM[0] },
       { label: S.s1, i: 1, hp: veh.hp[1], nm: NM[1] },
       { label: S.s2, i: 2, hp: veh.hp[2], nm: NM[2], note: veh.n2 },
-      { label: S.s3, i: 3, hp: s3 && s3.hp, nm: NM3, note: s3 && s3.l },
+      { label: S.s3, i: 3, hp: s3 && s3.hp, nm: NM3, note: s3 && s3.l, plus: s3 && s3.plus },
     ].map((st) => ({ ...st, off: st.hp == null }));
 
     const note = stages[stage] && stages[stage].note;
@@ -1351,7 +1468,7 @@ function PowerTab({ S, veh, setVeh }) {
                     lineHeight: 1.15,
                   }}
                 >
-                  {off ? "—" : fmt(st.hp)}
+                  {off ? "—" : fmt(st.hp) + (st.plus ? "+" : "")}
                   {!off && <span style={{ fontSize: 8.5, color: t.muted }}> {S.hp}</span>}
                 </div>
                 <div
@@ -1454,7 +1571,7 @@ function PowerTab({ S, veh, setVeh }) {
           background: t.card,
           border: `1px dashed ${t.line}`,
           borderRadius: t.r.card,
-          padding: "34px 14px",
+          padding: "18px 14px 20px",
           color: t.muted,
           cursor: "pointer",
           display: "flex",
@@ -1463,7 +1580,7 @@ function PowerTab({ S, veh, setVeh }) {
           gap: 9,
         }}
       >
-        <Car size={22} color={t.muted} />
+        <SetupArt />
         <span style={{ fontSize: 12, color: t.text }}>{S.pickPrompt}</span>
       </button>
     );
@@ -1507,7 +1624,10 @@ function PowerTab({ S, veh, setVeh }) {
           />
         </span>
         {help && (
-          <span style={{ fontSize: 11, lineHeight: 1.45, color: t.text }}>{S.notFoundBody}</span>
+          <span style={{ display: "grid", gap: 4, fontSize: 11, lineHeight: 1.45, color: t.text }}>
+            <span>{S.notFoundBody}</span>
+            <span style={{ color: t.muted }}>{S.notFoundOld}</span>
+          </span>
         )}
       </button>
 
@@ -1596,7 +1716,7 @@ function PowerTab({ S, veh, setVeh }) {
                     key={v.id}
                     title={v.m}
                     sub={`${v.y} · ${v.e} · ${v.hp[0]}→${
-                      v.s3 ? v.s3.hp : v.hp[2] != null ? v.hp[2] : v.hp[1]
+                      v.s3 ? v.s3.hp + (v.s3.plus ? "+" : "") : v.hp[2] != null ? v.hp[2] : v.hp[1]
                     } ${S.hp}`}
                     right={<Car size={14} color={veh && v.id === veh.id ? t.accent : t.muted} />}
                     onClick={() => {
@@ -1932,6 +2052,58 @@ function RecentStrip({ S }) {
         ))}
       </div>
     </div>
+  );
+}
+
+/* Boş ekran çizimi: dizüstü → yazılım cihazı → OBD portu → araç.
+   Tek renk çizgi, tema renklerini kullanır. */
+function SetupArt() {
+  const t = useT();
+  const L = { fill: "none", stroke: t.line, strokeWidth: 1.6, strokeLinejoin: "round", strokeLinecap: "round" };
+  const M = { ...L, stroke: t.muted, strokeWidth: 1.2 };
+  return (
+    <svg viewBox="0 0 320 150" style={{ width: "100%", maxWidth: 300, height: "auto", display: "block" }}>
+      {/* dizüstü */}
+      <rect x="8" y="46" width="86" height="58" rx="4" {...L} />
+      <rect x="15" y="53" width="72" height="44" rx="2" {...M} />
+      <polyline points="21,90 34,80 47,83 61,68 81,59" fill="none" stroke={t.accent} strokeWidth="2"
+        strokeLinejoin="round" strokeLinecap="round" />
+      <polyline points="8,110 94,110 102,120 0,120" {...L} />
+      <line x1="42" y1="115" x2="60" y2="115" {...M} />
+
+      {/* kablo */}
+      <path d="M106 88 C120 88 120 82 134 82" {...M} strokeDasharray="0" />
+
+      {/* yazılım cihazı */}
+      <rect x="134" y="66" width="44" height="32" rx="4" {...L} />
+      <circle cx="166" cy="75" r="3.2" fill={t.accent} />
+      <line x1="141" y1="86" x2="161" y2="86" {...M} />
+      <line x1="141" y1="92" x2="153" y2="92" {...M} />
+
+      {/* kablo */}
+      <path d="M178 82 C190 82 192 88 202 88" {...M} />
+
+      {/* OBD portu */}
+      <path d="M203 74 h44 l-5 30 h-34 z" {...L} />
+      {[0, 1, 2, 3, 4, 5, 6].map((i) => (
+        <circle key={"a" + i} cx={210 + i * 5} cy="84" r="1.5" fill={t.muted} />
+      ))}
+      {[0, 1, 2, 3, 4, 5, 6].map((i) => (
+        <circle key={"b" + i} cx={211 + i * 5} cy="95" r="1.5" fill={t.muted} />
+      ))}
+
+      {/* araca giden bağlantı */}
+      <path d="M225 74 L225 58" {...M} strokeDasharray="3 3" />
+
+      {/* araç silueti */}
+      <path
+        d="M196 52 c0-7 5-11 12-12 l11-13 c2-2 4-3 7-3 h32 c3 0 5 1 7 3 l11 13 c7 1 12 5 12 12 v4 h-92 z"
+        {...L}
+      />
+      <path d="M219 28 h48" {...M} />
+      <circle cx="214" cy="56" r="6" {...L} />
+      <circle cx="270" cy="56" r="6" {...L} />
+    </svg>
   );
 }
 
