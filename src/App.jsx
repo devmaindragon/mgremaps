@@ -924,6 +924,19 @@ const VEHICLES = [
     hp: [625, 700, 750], n2: "Downpipe", ...RPM },
 ];
 
+const brandOf = (g) => g.split(" ")[0];
+
+/* Öne çıkan araçlar. public/recent.json aynı biçimde, oradan güncellenir.
+   Kaç kayıt olursa olsun şerit yatay kaydırılır.
+   l: seviye yazısını elle vermek için (örn. "STAGE 3 · IS20"). Yoksa s'ten üretilir.
+   img: public/recent/ altındaki görselin yolu. Dosya yoksa araç ikonu çıkar. */
+const RECENT_FALLBACK = [
+  { v: "BMW 320i G20", s: 2, gain: 170, img: "./recent/1.jpg" },
+  { v: "VW Golf 7 1.4 TSI", s: 3, l: "STAGE 3 · IS20", gain: 155, img: "./recent/2.jpg" },
+  { v: "Audi S3 8Y", s: 2, gain: 80, img: "./recent/3.jpg" },
+  { v: "BMW 320i G20", s: 1, gain: 110, img: "./recent/4.jpg" },
+];
+
 const GROUPS = [
   "VW Polo 6R",
   "VW Scirocco",
