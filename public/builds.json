@@ -1,0 +1,545 @@
+[
+  {
+    "car": "vw-golf-7-1-4-tsi-ea211-125",
+    "s": 3,
+    "title": "Golf 1.4 TSI DSG",
+    "dealer": "MgRemaps Tekirdağ",
+    "img": "./builds/golf-14tsi-is20.jpg",
+    "setup": [
+      "IS20 Turbo",
+      "Tial 38mm External Wastegate",
+      "HKS EVC6IR",
+      "Injen Cold Air Intake",
+      "Watercooler Delete",
+      "Greddy Intercooler",
+      "Downpipe",
+      "GTI Backbox",
+      "Bosphorus Innovations WMI Kit"
+    ],
+    "t100": 5.69,
+    "d100": 0.2,
+    "t": 11.79,
+    "d": -0.7
+  },
+  {
+    "car": "vw-golf-7-1-4-tsi-ea211-140",
+    "s": 3,
+    "title": "Golf 1.4 TSI DSG",
+    "dealer": "MgRemaps Tekirdağ",
+    "img": "./builds/golf-14tsi-is20.jpg",
+    "setup": [
+      "IS20 Turbo",
+      "Tial 38mm External Wastegate",
+      "HKS EVC6IR",
+      "Injen Cold Air Intake",
+      "Watercooler Delete",
+      "Greddy Intercooler",
+      "Downpipe",
+      "GTI Backbox",
+      "Bosphorus Innovations WMI Kit"
+    ],
+    "t100": 5.69,
+    "d100": 0.2,
+    "t": 11.79,
+    "d": -0.7
+  },
+  {
+    "car": "vw-passat-b8-1-4-tsi-ea211-125",
+    "s": 3,
+    "title": "Golf 1.4 TSI DSG",
+    "dealer": "MgRemaps Tekirdağ",
+    "img": "./builds/golf-14tsi-is20.jpg",
+    "setup": [
+      "IS20 Turbo",
+      "Tial 38mm External Wastegate",
+      "HKS EVC6IR",
+      "Injen Cold Air Intake",
+      "Watercooler Delete",
+      "Greddy Intercooler",
+      "Downpipe",
+      "GTI Backbox",
+      "Bosphorus Innovations WMI Kit"
+    ],
+    "t100": 5.69,
+    "d100": 0.2,
+    "t": 11.79,
+    "d": -0.7
+  },
+  {
+    "car": "seat-leon-1-4-tsi-ea211-125",
+    "s": 3,
+    "title": "Golf 1.4 TSI DSG",
+    "dealer": "MgRemaps Tekirdağ",
+    "img": "./builds/golf-14tsi-is20.jpg",
+    "setup": [
+      "IS20 Turbo",
+      "Tial 38mm External Wastegate",
+      "HKS EVC6IR",
+      "Injen Cold Air Intake",
+      "Watercooler Delete",
+      "Greddy Intercooler",
+      "Downpipe",
+      "GTI Backbox",
+      "Bosphorus Innovations WMI Kit"
+    ],
+    "t100": 5.69,
+    "d100": 0.2,
+    "t": 11.79,
+    "d": -0.7
+  },
+  {
+    "car": "seat-leon-1-4-tsi-ea211-140",
+    "s": 3,
+    "title": "Golf 1.4 TSI DSG",
+    "dealer": "MgRemaps Tekirdağ",
+    "img": "./builds/golf-14tsi-is20.jpg",
+    "setup": [
+      "IS20 Turbo",
+      "Tial 38mm External Wastegate",
+      "HKS EVC6IR",
+      "Injen Cold Air Intake",
+      "Watercooler Delete",
+      "Greddy Intercooler",
+      "Downpipe",
+      "GTI Backbox",
+      "Bosphorus Innovations WMI Kit"
+    ],
+    "t100": 5.69,
+    "d100": 0.2,
+    "t": 11.79,
+    "d": -0.7
+  },
+  {
+    "car": "skoda-rapid-1-4-tsi-ea211-125",
+    "s": 3,
+    "title": "Golf 1.4 TSI DSG",
+    "dealer": "MgRemaps Tekirdağ",
+    "img": "./builds/golf-14tsi-is20.jpg",
+    "setup": [
+      "IS20 Turbo",
+      "Tial 38mm External Wastegate",
+      "HKS EVC6IR",
+      "Injen Cold Air Intake",
+      "Watercooler Delete",
+      "Greddy Intercooler",
+      "Downpipe",
+      "GTI Backbox",
+      "Bosphorus Innovations WMI Kit"
+    ],
+    "t100": 5.69,
+    "d100": 0.2,
+    "t": 11.79,
+    "d": -0.7
+  },
+  {
+    "car": "skoda-superb-1-4-tsi-ea211-125",
+    "s": 3,
+    "title": "Golf 1.4 TSI DSG",
+    "dealer": "MgRemaps Tekirdağ",
+    "img": "./builds/golf-14tsi-is20.jpg",
+    "setup": [
+      "IS20 Turbo",
+      "Tial 38mm External Wastegate",
+      "HKS EVC6IR",
+      "Injen Cold Air Intake",
+      "Watercooler Delete",
+      "Greddy Intercooler",
+      "Downpipe",
+      "GTI Backbox",
+      "Bosphorus Innovations WMI Kit"
+    ],
+    "t100": 5.69,
+    "d100": 0.2,
+    "t": 11.79,
+    "d": -0.7
+  },
+  {
+    "car": "audi-a3-1-4-tsi-ea211-125",
+    "s": 3,
+    "title": "Golf 1.4 TSI DSG",
+    "dealer": "MgRemaps Tekirdağ",
+    "img": "./builds/golf-14tsi-is20.jpg",
+    "setup": [
+      "IS20 Turbo",
+      "Tial 38mm External Wastegate",
+      "HKS EVC6IR",
+      "Injen Cold Air Intake",
+      "Watercooler Delete",
+      "Greddy Intercooler",
+      "Downpipe",
+      "GTI Backbox",
+      "Bosphorus Innovations WMI Kit"
+    ],
+    "t100": 5.69,
+    "d100": 0.2,
+    "t": 11.79,
+    "d": -0.7
+  },
+  {
+    "car": "bmw-320i-1-6-b48-170",
+    "s": 2,
+    "title": "320i G20 Stage 2",
+    "dealer": "MgRemaps Tekirdağ",
+    "img": "./builds/g20-320i-stage2.jpg",
+    "setup": [
+      "Moda göre yazılım",
+      "Sport Cooling",
+      "BMC Filtre",
+      "Downpipe",
+      "OPF Delete",
+      "HG Turbo Inlet Pipe"
+    ],
+    "t100": 5.2,
+    "d100": 0,
+    "t": 11.77,
+    "d": -0.4
+  },
+  {
+    "car": "bmw-320i-1-6-b48-170",
+    "s": 2,
+    "title": "320i G20 Stage 2",
+    "dealer": "MgRemaps Tekirdağ",
+    "img": "./builds/g20-320i-stage2-b.jpg",
+    "setup": [
+      "Moda göre yazılım",
+      "Sport Cooling",
+      "K&N Filtre",
+      "Downpipe",
+      "OPF Delete"
+    ],
+    "t100": 5.1,
+    "d100": 0,
+    "t": 11.23,
+    "d": -0.7
+  },
+  {
+    "car": "vw-golf-7-1-4-tsi-ea211-125",
+    "s": 3,
+    "title": "1.4 TSI IHI140 Hybrid",
+    "dealer": "MgRemaps Tekirdağ",
+    "img": "./builds/ea211-ihi140.jpg",
+    "setup": [
+      "Downpipe",
+      "K&N Filtre",
+      "AEM WMI Kit",
+      "IHI140 Hybrid Turbo"
+    ],
+    "t": 15.84,
+    "d": -1.27
+  },
+  {
+    "car": "vw-golf-7-1-4-tsi-ea211-140",
+    "s": 3,
+    "title": "1.4 TSI IHI140 Hybrid",
+    "dealer": "MgRemaps Tekirdağ",
+    "img": "./builds/ea211-ihi140.jpg",
+    "setup": [
+      "Downpipe",
+      "K&N Filtre",
+      "AEM WMI Kit",
+      "IHI140 Hybrid Turbo"
+    ],
+    "t": 15.84,
+    "d": -1.27
+  },
+  {
+    "car": "vw-passat-b8-1-4-tsi-ea211-125",
+    "s": 3,
+    "title": "1.4 TSI IHI140 Hybrid",
+    "dealer": "MgRemaps Tekirdağ",
+    "img": "./builds/ea211-ihi140.jpg",
+    "setup": [
+      "Downpipe",
+      "K&N Filtre",
+      "AEM WMI Kit",
+      "IHI140 Hybrid Turbo"
+    ],
+    "t": 15.84,
+    "d": -1.27
+  },
+  {
+    "car": "vw-passat-b8-1-4-tsi-ea211-150",
+    "s": 3,
+    "title": "1.4 TSI IHI140 Hybrid",
+    "dealer": "MgRemaps Tekirdağ",
+    "img": "./builds/ea211-ihi140.jpg",
+    "setup": [
+      "Downpipe",
+      "K&N Filtre",
+      "AEM WMI Kit",
+      "IHI140 Hybrid Turbo"
+    ],
+    "t": 15.84,
+    "d": -1.27
+  },
+  {
+    "car": "vw-tiguan-1-4-tsi-ea211-150",
+    "s": 3,
+    "title": "1.4 TSI IHI140 Hybrid",
+    "dealer": "MgRemaps Tekirdağ",
+    "img": "./builds/ea211-ihi140.jpg",
+    "setup": [
+      "Downpipe",
+      "K&N Filtre",
+      "AEM WMI Kit",
+      "IHI140 Hybrid Turbo"
+    ],
+    "t": 15.84,
+    "d": -1.27
+  },
+  {
+    "car": "vw-cc-1-4-tsi-ea211-150",
+    "s": 3,
+    "title": "1.4 TSI IHI140 Hybrid",
+    "dealer": "MgRemaps Tekirdağ",
+    "img": "./builds/ea211-ihi140.jpg",
+    "setup": [
+      "Downpipe",
+      "K&N Filtre",
+      "AEM WMI Kit",
+      "IHI140 Hybrid Turbo"
+    ],
+    "t": 15.84,
+    "d": -1.27
+  },
+  {
+    "car": "seat-leon-1-4-tsi-ea211-125",
+    "s": 3,
+    "title": "1.4 TSI IHI140 Hybrid",
+    "dealer": "MgRemaps Tekirdağ",
+    "img": "./builds/ea211-ihi140.jpg",
+    "setup": [
+      "Downpipe",
+      "K&N Filtre",
+      "AEM WMI Kit",
+      "IHI140 Hybrid Turbo"
+    ],
+    "t": 15.84,
+    "d": -1.27
+  },
+  {
+    "car": "seat-leon-1-4-tsi-ea211-140",
+    "s": 3,
+    "title": "1.4 TSI IHI140 Hybrid",
+    "dealer": "MgRemaps Tekirdağ",
+    "img": "./builds/ea211-ihi140.jpg",
+    "setup": [
+      "Downpipe",
+      "K&N Filtre",
+      "AEM WMI Kit",
+      "IHI140 Hybrid Turbo"
+    ],
+    "t": 15.84,
+    "d": -1.27
+  },
+  {
+    "car": "seat-leon-1-4-tsi-ea211-150",
+    "s": 3,
+    "title": "1.4 TSI IHI140 Hybrid",
+    "dealer": "MgRemaps Tekirdağ",
+    "img": "./builds/ea211-ihi140.jpg",
+    "setup": [
+      "Downpipe",
+      "K&N Filtre",
+      "AEM WMI Kit",
+      "IHI140 Hybrid Turbo"
+    ],
+    "t": 15.84,
+    "d": -1.27
+  },
+  {
+    "car": "seat-ateca-1-4-tsi-ea211-150",
+    "s": 3,
+    "title": "1.4 TSI IHI140 Hybrid",
+    "dealer": "MgRemaps Tekirdağ",
+    "img": "./builds/ea211-ihi140.jpg",
+    "setup": [
+      "Downpipe",
+      "K&N Filtre",
+      "AEM WMI Kit",
+      "IHI140 Hybrid Turbo"
+    ],
+    "t": 15.84,
+    "d": -1.27
+  },
+  {
+    "car": "skoda-rapid-1-4-tsi-ea211-125",
+    "s": 3,
+    "title": "1.4 TSI IHI140 Hybrid",
+    "dealer": "MgRemaps Tekirdağ",
+    "img": "./builds/ea211-ihi140.jpg",
+    "setup": [
+      "Downpipe",
+      "K&N Filtre",
+      "AEM WMI Kit",
+      "IHI140 Hybrid Turbo"
+    ],
+    "t": 15.84,
+    "d": -1.27
+  },
+  {
+    "car": "skoda-octavia-1-4-tsi-ea211-150",
+    "s": 3,
+    "title": "1.4 TSI IHI140 Hybrid",
+    "dealer": "MgRemaps Tekirdağ",
+    "img": "./builds/ea211-ihi140.jpg",
+    "setup": [
+      "Downpipe",
+      "K&N Filtre",
+      "AEM WMI Kit",
+      "IHI140 Hybrid Turbo"
+    ],
+    "t": 15.84,
+    "d": -1.27
+  },
+  {
+    "car": "skoda-superb-1-4-tsi-ea211-125",
+    "s": 3,
+    "title": "1.4 TSI IHI140 Hybrid",
+    "dealer": "MgRemaps Tekirdağ",
+    "img": "./builds/ea211-ihi140.jpg",
+    "setup": [
+      "Downpipe",
+      "K&N Filtre",
+      "AEM WMI Kit",
+      "IHI140 Hybrid Turbo"
+    ],
+    "t": 15.84,
+    "d": -1.27
+  },
+  {
+    "car": "skoda-superb-1-4-tsi-ea211-150",
+    "s": 3,
+    "title": "1.4 TSI IHI140 Hybrid",
+    "dealer": "MgRemaps Tekirdağ",
+    "img": "./builds/ea211-ihi140.jpg",
+    "setup": [
+      "Downpipe",
+      "K&N Filtre",
+      "AEM WMI Kit",
+      "IHI140 Hybrid Turbo"
+    ],
+    "t": 15.84,
+    "d": -1.27
+  },
+  {
+    "car": "skoda-kodiaq-1-4-tsi-ea211-150",
+    "s": 3,
+    "title": "1.4 TSI IHI140 Hybrid",
+    "dealer": "MgRemaps Tekirdağ",
+    "img": "./builds/ea211-ihi140.jpg",
+    "setup": [
+      "Downpipe",
+      "K&N Filtre",
+      "AEM WMI Kit",
+      "IHI140 Hybrid Turbo"
+    ],
+    "t": 15.84,
+    "d": -1.27
+  },
+  {
+    "car": "audi-a3-1-4-tsi-ea211-125",
+    "s": 3,
+    "title": "1.4 TSI IHI140 Hybrid",
+    "dealer": "MgRemaps Tekirdağ",
+    "img": "./builds/ea211-ihi140.jpg",
+    "setup": [
+      "Downpipe",
+      "K&N Filtre",
+      "AEM WMI Kit",
+      "IHI140 Hybrid Turbo"
+    ],
+    "t": 15.84,
+    "d": -1.27
+  },
+  {
+    "car": "audi-a3-1-4-tsi-ea211-150",
+    "s": 3,
+    "title": "1.4 TSI IHI140 Hybrid",
+    "dealer": "MgRemaps Tekirdağ",
+    "img": "./builds/ea211-ihi140.jpg",
+    "setup": [
+      "Downpipe",
+      "K&N Filtre",
+      "AEM WMI Kit",
+      "IHI140 Hybrid Turbo"
+    ],
+    "t": 15.84,
+    "d": -1.27
+  },
+  {
+    "car": "audi-q2-1-4-tsi-ea211-150",
+    "s": 3,
+    "title": "1.4 TSI IHI140 Hybrid",
+    "dealer": "MgRemaps Tekirdağ",
+    "img": "./builds/ea211-ihi140.jpg",
+    "setup": [
+      "Downpipe",
+      "K&N Filtre",
+      "AEM WMI Kit",
+      "IHI140 Hybrid Turbo"
+    ],
+    "t": 15.84,
+    "d": -1.27
+  },
+  {
+    "car": "audi-q3-1-4-tsi-ea211-150",
+    "s": 3,
+    "title": "1.4 TSI IHI140 Hybrid",
+    "dealer": "MgRemaps Tekirdağ",
+    "img": "./builds/ea211-ihi140.jpg",
+    "setup": [
+      "Downpipe",
+      "K&N Filtre",
+      "AEM WMI Kit",
+      "IHI140 Hybrid Turbo"
+    ],
+    "t": 15.84,
+    "d": -1.27
+  },
+  {
+    "car": "audi-a4-1-4-tsi-ea211-150",
+    "s": 3,
+    "title": "1.4 TSI IHI140 Hybrid",
+    "dealer": "MgRemaps Tekirdağ",
+    "img": "./builds/ea211-ihi140.jpg",
+    "setup": [
+      "Downpipe",
+      "K&N Filtre",
+      "AEM WMI Kit",
+      "IHI140 Hybrid Turbo"
+    ],
+    "t": 15.84,
+    "d": -1.27
+  },
+  {
+    "car": "audi-a5-1-4-tsi-ea211-150",
+    "s": 3,
+    "title": "1.4 TSI IHI140 Hybrid",
+    "dealer": "MgRemaps Tekirdağ",
+    "img": "./builds/ea211-ihi140.jpg",
+    "setup": [
+      "Downpipe",
+      "K&N Filtre",
+      "AEM WMI Kit",
+      "IHI140 Hybrid Turbo"
+    ],
+    "t": 15.84,
+    "d": -1.27
+  },
+  {
+    "car": "audi-tt-8j-2-0-tsi-ea888-g2-220",
+    "s": 2,
+    "title": "TT 8J 2.0 TFSI DSG",
+    "dealer": "MgRemaps Tekirdağ",
+    "img": "./builds/audi-tt-8j-stage2.jpg",
+    "setup": [
+      "Stage 2 ECU + Stage 1 DSG",
+      "K&N Filtre",
+      "Downpipe",
+      "FMIC"
+    ],
+    "t": 14.3,
+    "d": -0.7
+  }
+]

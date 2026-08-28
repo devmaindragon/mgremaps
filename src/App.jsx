@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useMemo, useState, useEffect } from "react";
-import { Gauge, Phone, Trophy, Search, X, ChevronDown, Car, MapPin, Globe, Lock, ChevronLeft, ChevronRight, HelpCircle, ArrowRight } from "lucide-react";
+import { Gauge, Phone, Trophy, Search, X, ChevronDown, Car, MapPin, Globe, Lock, ChevronLeft, ChevronRight, HelpCircle, ArrowRight, Camera, Zap } from "lucide-react";
 
 /* ============================================================
    1. THEME
@@ -38,6 +38,7 @@ const APP = {
   leaderboard:
     "https://raw.githubusercontent.com/devmaindragon/mgremaps/main/public/leaderboard.json",
   recent: "https://raw.githubusercontent.com/devmaindragon/mgremaps/main/public/recent.json",
+  builds: "https://raw.githubusercontent.com/devmaindragon/mgremaps/main/public/builds.json",
 };
 
 /* ============================================================
@@ -49,15 +50,19 @@ const STR = {
     nav: ["GÜÇ ARTIŞI", "BAYİ AĞIMIZ", "SÜRE TABLOSU"],
     pickVehicle: "ARAÇ SEÇ",
     pickHint: "Marka, model veya motor kodu ara",
-    pickPrompt: "Başlamak için bir araç seç",
     notice: "Eksik araç modelleri güncellemelerle gelecektir, takipte kalın!",
     pickBrand: "MARKA SEÇ",
+    quick: "HIZLI ERİŞİM",
     pickModel: "MODEL SEÇ",
     back: "GERİ",
     recent: "ÖNE ÇIKAN ARAÇLAR",
+    refCar: "REFERANS ARAÇ",
+    refSetup: "KURULUM",
+    refDealer: "YAPAN BAYİ",
+    refTime: "100-200 km/h",
+    refTime0: "0-100 km/h",
     notFound: "Aracınızı bulamıyor musunuz?",
     notFoundBody: "Detaylı bilgi almak için bayilerimizle iletişime geçebilirsiniz.",
-    notFoundOld: "2010 yılı öncesi araçlarınız için bayilerimizle iletişime geçebilirsiniz.",
     wLead: "Motor yazılımı sonrası aracınızın ne kazanacağını, ölçümlere dayalı olarak gösterir.",
     wF1: "Stage 1, 2 ve 3 için hp ve tork eğrileri, gereken donanımla birlikte",
     wF2: "Bayi ağımızın il bazında iletişim bilgileri, tek dokunuşla arama",
@@ -110,15 +115,19 @@ const STR = {
     nav: ["POWER GAIN", "OUR DEALERS", "TIME TABLE"],
     pickVehicle: "SELECT VEHICLE",
     pickHint: "Search make, model or engine code",
-    pickPrompt: "Select a vehicle to start",
     notice: "Missing vehicle models will arrive with updates — stay tuned!",
     pickBrand: "SELECT BRAND",
+    quick: "QUICK ACCESS",
     pickModel: "SELECT MODEL",
     back: "BACK",
     recent: "FEATURED VEHICLES",
+    refCar: "REFERENCE BUILD",
+    refSetup: "SETUP",
+    refDealer: "BUILT BY",
+    refTime: "100-200 km/h",
+    refTime0: "0-100 km/h",
     notFound: "Can't find your vehicle?",
     notFoundBody: "Contact our dealers for detailed information.",
-    notFoundOld: "For vehicles built before 2010, please contact our dealers.",
     wLead: "Shows what your vehicle gains after an ECU remap, based on measured results.",
     wF1: "Power and torque curves for Stage 1, 2 and 3, with the hardware each needs",
     wF2: "Dealer contacts by city, one-tap calling",
@@ -171,15 +180,19 @@ const STR = {
     nav: ["LEISTUNGSPLUS", "HÄNDLERNETZ", "ZEITTABELLE"],
     pickVehicle: "FAHRZEUG WÄHLEN",
     pickHint: "Marke, Modell oder Motorcode suchen",
-    pickPrompt: "Fahrzeug wählen, um zu starten",
     notice: "Fehlende Modelle folgen mit Updates — bleiben Sie dran!",
     pickBrand: "MARKE WÄHLEN",
+    quick: "SCHNELLZUGRIFF",
     pickModel: "MODELL WÄHLEN",
     back: "ZURÜCK",
     recent: "AUSGEWÄHLTE FAHRZEUGE",
+    refCar: "REFERENZFAHRZEUG",
+    refSetup: "AUFBAU",
+    refDealer: "AUSGEFÜHRT VON",
+    refTime: "100-200 km/h",
+    refTime0: "0-100 km/h",
     notFound: "Fahrzeug nicht gefunden?",
     notFoundBody: "Für Details wenden Sie sich an unsere Händler.",
-    notFoundOld: "Für Fahrzeuge vor Baujahr 2010 wenden Sie sich bitte an unsere Händler.",
     wLead: "Zeigt auf Basis gemessener Ergebnisse, was Ihr Fahrzeug nach dem Chiptuning gewinnt.",
     wF1: "Leistungs- und Drehmomentkurven für Stufe 1, 2 und 3 samt nötiger Hardware",
     wF2: "Händlerkontakte nach Stadt, Anruf mit einem Tipp",
@@ -926,6 +939,14 @@ const VEHICLES = [
 
 const brandOf = (g) => g.split(" ")[0];
 
+/* Marka seçim ekranının üstünde çıkan hızlı erişim araçları.
+   Buraya araç kodu yazmak yeterli, kod listesi arac-kodlari.md içinde. */
+const QUICK = [
+  "vw-golf-7-1-4-tsi-ea211-140",
+  "bmw-320i-1-6-b48-170",
+  "audi-tt-8j-2-0-tsi-ea888-g2-220",
+];
+
 /* Öne çıkan araçlar. public/recent.json aynı biçimde, oradan güncellenir.
    Kaç kayıt olursa olsun şerit yatay kaydırılır.
    l: seviye yazısını elle vermek için (örn. "STAGE 3 · IS20"). Yoksa s'ten üretilir.
@@ -935,6 +956,513 @@ const RECENT_FALLBACK = [
   { v: "VW Golf 7 1.4 TSI", s: 3, l: "STAGE 3 · IS20", gain: 155, img: "./recent/2.jpg" },
   { v: "Audi S3 8Y", s: 2, gain: 80, img: "./recent/3.jpg" },
   { v: "BMW 320i G20", s: 1, gain: 110, img: "./recent/4.jpg" },
+];
+
+/* Referans araçlar: sisteme girilmiş örnek uygulamalar.
+   car = araç kodu (VEHICLES içindeki id), s = seviye (1, 2, 3).
+   public/builds.json aynı biçimde, oradan güncellenir. */
+const BUILDS_FALLBACK = [
+  {
+    car: "vw-golf-7-1-4-tsi-ea211-125",
+    s: 3,
+    title: "Golf 1.4 TSI DSG",
+    dealer: "MgRemaps Tekirdağ",
+    img: "./builds/golf-14tsi-is20.jpg",
+    setup: [
+      "IS20 Turbo",
+      "Tial 38mm External Wastegate",
+      "HKS EVC6IR",
+      "Injen Cold Air Intake",
+      "Watercooler Delete",
+      "Greddy Intercooler",
+      "Downpipe",
+      "GTI Backbox",
+      "Bosphorus Innovations WMI Kit",
+    ],
+    t100: 5.69, d100: 0.2,
+    t: 11.79, d: -0.7,
+  },
+  {
+    car: "vw-golf-7-1-4-tsi-ea211-140",
+    s: 3,
+    title: "Golf 1.4 TSI DSG",
+    dealer: "MgRemaps Tekirdağ",
+    img: "./builds/golf-14tsi-is20.jpg",
+    setup: [
+      "IS20 Turbo",
+      "Tial 38mm External Wastegate",
+      "HKS EVC6IR",
+      "Injen Cold Air Intake",
+      "Watercooler Delete",
+      "Greddy Intercooler",
+      "Downpipe",
+      "GTI Backbox",
+      "Bosphorus Innovations WMI Kit",
+    ],
+    t100: 5.69, d100: 0.2,
+    t: 11.79, d: -0.7,
+  },
+  {
+    car: "vw-passat-b8-1-4-tsi-ea211-125",
+    s: 3,
+    title: "Golf 1.4 TSI DSG",
+    dealer: "MgRemaps Tekirdağ",
+    img: "./builds/golf-14tsi-is20.jpg",
+    setup: [
+      "IS20 Turbo",
+      "Tial 38mm External Wastegate",
+      "HKS EVC6IR",
+      "Injen Cold Air Intake",
+      "Watercooler Delete",
+      "Greddy Intercooler",
+      "Downpipe",
+      "GTI Backbox",
+      "Bosphorus Innovations WMI Kit",
+    ],
+    t100: 5.69, d100: 0.2,
+    t: 11.79, d: -0.7,
+  },
+  {
+    car: "seat-leon-1-4-tsi-ea211-125",
+    s: 3,
+    title: "Golf 1.4 TSI DSG",
+    dealer: "MgRemaps Tekirdağ",
+    img: "./builds/golf-14tsi-is20.jpg",
+    setup: [
+      "IS20 Turbo",
+      "Tial 38mm External Wastegate",
+      "HKS EVC6IR",
+      "Injen Cold Air Intake",
+      "Watercooler Delete",
+      "Greddy Intercooler",
+      "Downpipe",
+      "GTI Backbox",
+      "Bosphorus Innovations WMI Kit",
+    ],
+    t100: 5.69, d100: 0.2,
+    t: 11.79, d: -0.7,
+  },
+  {
+    car: "seat-leon-1-4-tsi-ea211-140",
+    s: 3,
+    title: "Golf 1.4 TSI DSG",
+    dealer: "MgRemaps Tekirdağ",
+    img: "./builds/golf-14tsi-is20.jpg",
+    setup: [
+      "IS20 Turbo",
+      "Tial 38mm External Wastegate",
+      "HKS EVC6IR",
+      "Injen Cold Air Intake",
+      "Watercooler Delete",
+      "Greddy Intercooler",
+      "Downpipe",
+      "GTI Backbox",
+      "Bosphorus Innovations WMI Kit",
+    ],
+    t100: 5.69, d100: 0.2,
+    t: 11.79, d: -0.7,
+  },
+  {
+    car: "skoda-rapid-1-4-tsi-ea211-125",
+    s: 3,
+    title: "Golf 1.4 TSI DSG",
+    dealer: "MgRemaps Tekirdağ",
+    img: "./builds/golf-14tsi-is20.jpg",
+    setup: [
+      "IS20 Turbo",
+      "Tial 38mm External Wastegate",
+      "HKS EVC6IR",
+      "Injen Cold Air Intake",
+      "Watercooler Delete",
+      "Greddy Intercooler",
+      "Downpipe",
+      "GTI Backbox",
+      "Bosphorus Innovations WMI Kit",
+    ],
+    t100: 5.69, d100: 0.2,
+    t: 11.79, d: -0.7,
+  },
+  {
+    car: "skoda-superb-1-4-tsi-ea211-125",
+    s: 3,
+    title: "Golf 1.4 TSI DSG",
+    dealer: "MgRemaps Tekirdağ",
+    img: "./builds/golf-14tsi-is20.jpg",
+    setup: [
+      "IS20 Turbo",
+      "Tial 38mm External Wastegate",
+      "HKS EVC6IR",
+      "Injen Cold Air Intake",
+      "Watercooler Delete",
+      "Greddy Intercooler",
+      "Downpipe",
+      "GTI Backbox",
+      "Bosphorus Innovations WMI Kit",
+    ],
+    t100: 5.69, d100: 0.2,
+    t: 11.79, d: -0.7,
+  },
+  {
+    car: "audi-a3-1-4-tsi-ea211-125",
+    s: 3,
+    title: "Golf 1.4 TSI DSG",
+    dealer: "MgRemaps Tekirdağ",
+    img: "./builds/golf-14tsi-is20.jpg",
+    setup: [
+      "IS20 Turbo",
+      "Tial 38mm External Wastegate",
+      "HKS EVC6IR",
+      "Injen Cold Air Intake",
+      "Watercooler Delete",
+      "Greddy Intercooler",
+      "Downpipe",
+      "GTI Backbox",
+      "Bosphorus Innovations WMI Kit",
+    ],
+    t100: 5.69, d100: 0.2,
+    t: 11.79, d: -0.7,
+  },
+  {
+    car: "bmw-320i-1-6-b48-170",
+    s: 2,
+    title: "320i G20 Stage 2",
+    dealer: "MgRemaps Tekirdağ",
+    img: "./builds/g20-320i-stage2.jpg",
+    setup: [
+      "Moda göre yazılım",
+      "Sport Cooling",
+      "BMC Filtre",
+      "Downpipe",
+      "OPF Delete",
+      "HG Turbo Inlet Pipe",
+    ],
+    t100: 5.2, d100: 0,
+    t: 11.77, d: -0.4,
+  },
+  {
+    car: "bmw-320i-1-6-b48-170",
+    s: 2,
+    title: "320i G20 Stage 2",
+    dealer: "MgRemaps Tekirdağ",
+    img: "./builds/g20-320i-stage2-b.jpg",
+    setup: [
+      "Moda göre yazılım",
+      "Sport Cooling",
+      "K&N Filtre",
+      "Downpipe",
+      "OPF Delete",
+    ],
+    t100: 5.1, d100: 0,
+    t: 11.23, d: -0.7,
+  },
+  {
+    car: "vw-golf-7-1-4-tsi-ea211-125",
+    s: 3,
+    title: "1.4 TSI IHI140 Hybrid",
+    dealer: "MgRemaps Tekirdağ",
+    img: "./builds/ea211-ihi140.jpg",
+    setup: [
+      "Downpipe",
+      "K&N Filtre",
+      "AEM WMI Kit",
+      "IHI140 Hybrid Turbo",
+    ],
+    t: 15.84, d: -1.27,
+  },
+  {
+    car: "vw-golf-7-1-4-tsi-ea211-140",
+    s: 3,
+    title: "1.4 TSI IHI140 Hybrid",
+    dealer: "MgRemaps Tekirdağ",
+    img: "./builds/ea211-ihi140.jpg",
+    setup: [
+      "Downpipe",
+      "K&N Filtre",
+      "AEM WMI Kit",
+      "IHI140 Hybrid Turbo",
+    ],
+    t: 15.84, d: -1.27,
+  },
+  {
+    car: "vw-passat-b8-1-4-tsi-ea211-125",
+    s: 3,
+    title: "1.4 TSI IHI140 Hybrid",
+    dealer: "MgRemaps Tekirdağ",
+    img: "./builds/ea211-ihi140.jpg",
+    setup: [
+      "Downpipe",
+      "K&N Filtre",
+      "AEM WMI Kit",
+      "IHI140 Hybrid Turbo",
+    ],
+    t: 15.84, d: -1.27,
+  },
+  {
+    car: "vw-passat-b8-1-4-tsi-ea211-150",
+    s: 3,
+    title: "1.4 TSI IHI140 Hybrid",
+    dealer: "MgRemaps Tekirdağ",
+    img: "./builds/ea211-ihi140.jpg",
+    setup: [
+      "Downpipe",
+      "K&N Filtre",
+      "AEM WMI Kit",
+      "IHI140 Hybrid Turbo",
+    ],
+    t: 15.84, d: -1.27,
+  },
+  {
+    car: "vw-tiguan-1-4-tsi-ea211-150",
+    s: 3,
+    title: "1.4 TSI IHI140 Hybrid",
+    dealer: "MgRemaps Tekirdağ",
+    img: "./builds/ea211-ihi140.jpg",
+    setup: [
+      "Downpipe",
+      "K&N Filtre",
+      "AEM WMI Kit",
+      "IHI140 Hybrid Turbo",
+    ],
+    t: 15.84, d: -1.27,
+  },
+  {
+    car: "vw-cc-1-4-tsi-ea211-150",
+    s: 3,
+    title: "1.4 TSI IHI140 Hybrid",
+    dealer: "MgRemaps Tekirdağ",
+    img: "./builds/ea211-ihi140.jpg",
+    setup: [
+      "Downpipe",
+      "K&N Filtre",
+      "AEM WMI Kit",
+      "IHI140 Hybrid Turbo",
+    ],
+    t: 15.84, d: -1.27,
+  },
+  {
+    car: "seat-leon-1-4-tsi-ea211-125",
+    s: 3,
+    title: "1.4 TSI IHI140 Hybrid",
+    dealer: "MgRemaps Tekirdağ",
+    img: "./builds/ea211-ihi140.jpg",
+    setup: [
+      "Downpipe",
+      "K&N Filtre",
+      "AEM WMI Kit",
+      "IHI140 Hybrid Turbo",
+    ],
+    t: 15.84, d: -1.27,
+  },
+  {
+    car: "seat-leon-1-4-tsi-ea211-140",
+    s: 3,
+    title: "1.4 TSI IHI140 Hybrid",
+    dealer: "MgRemaps Tekirdağ",
+    img: "./builds/ea211-ihi140.jpg",
+    setup: [
+      "Downpipe",
+      "K&N Filtre",
+      "AEM WMI Kit",
+      "IHI140 Hybrid Turbo",
+    ],
+    t: 15.84, d: -1.27,
+  },
+  {
+    car: "seat-leon-1-4-tsi-ea211-150",
+    s: 3,
+    title: "1.4 TSI IHI140 Hybrid",
+    dealer: "MgRemaps Tekirdağ",
+    img: "./builds/ea211-ihi140.jpg",
+    setup: [
+      "Downpipe",
+      "K&N Filtre",
+      "AEM WMI Kit",
+      "IHI140 Hybrid Turbo",
+    ],
+    t: 15.84, d: -1.27,
+  },
+  {
+    car: "seat-ateca-1-4-tsi-ea211-150",
+    s: 3,
+    title: "1.4 TSI IHI140 Hybrid",
+    dealer: "MgRemaps Tekirdağ",
+    img: "./builds/ea211-ihi140.jpg",
+    setup: [
+      "Downpipe",
+      "K&N Filtre",
+      "AEM WMI Kit",
+      "IHI140 Hybrid Turbo",
+    ],
+    t: 15.84, d: -1.27,
+  },
+  {
+    car: "skoda-rapid-1-4-tsi-ea211-125",
+    s: 3,
+    title: "1.4 TSI IHI140 Hybrid",
+    dealer: "MgRemaps Tekirdağ",
+    img: "./builds/ea211-ihi140.jpg",
+    setup: [
+      "Downpipe",
+      "K&N Filtre",
+      "AEM WMI Kit",
+      "IHI140 Hybrid Turbo",
+    ],
+    t: 15.84, d: -1.27,
+  },
+  {
+    car: "skoda-octavia-1-4-tsi-ea211-150",
+    s: 3,
+    title: "1.4 TSI IHI140 Hybrid",
+    dealer: "MgRemaps Tekirdağ",
+    img: "./builds/ea211-ihi140.jpg",
+    setup: [
+      "Downpipe",
+      "K&N Filtre",
+      "AEM WMI Kit",
+      "IHI140 Hybrid Turbo",
+    ],
+    t: 15.84, d: -1.27,
+  },
+  {
+    car: "skoda-superb-1-4-tsi-ea211-125",
+    s: 3,
+    title: "1.4 TSI IHI140 Hybrid",
+    dealer: "MgRemaps Tekirdağ",
+    img: "./builds/ea211-ihi140.jpg",
+    setup: [
+      "Downpipe",
+      "K&N Filtre",
+      "AEM WMI Kit",
+      "IHI140 Hybrid Turbo",
+    ],
+    t: 15.84, d: -1.27,
+  },
+  {
+    car: "skoda-superb-1-4-tsi-ea211-150",
+    s: 3,
+    title: "1.4 TSI IHI140 Hybrid",
+    dealer: "MgRemaps Tekirdağ",
+    img: "./builds/ea211-ihi140.jpg",
+    setup: [
+      "Downpipe",
+      "K&N Filtre",
+      "AEM WMI Kit",
+      "IHI140 Hybrid Turbo",
+    ],
+    t: 15.84, d: -1.27,
+  },
+  {
+    car: "skoda-kodiaq-1-4-tsi-ea211-150",
+    s: 3,
+    title: "1.4 TSI IHI140 Hybrid",
+    dealer: "MgRemaps Tekirdağ",
+    img: "./builds/ea211-ihi140.jpg",
+    setup: [
+      "Downpipe",
+      "K&N Filtre",
+      "AEM WMI Kit",
+      "IHI140 Hybrid Turbo",
+    ],
+    t: 15.84, d: -1.27,
+  },
+  {
+    car: "audi-a3-1-4-tsi-ea211-125",
+    s: 3,
+    title: "1.4 TSI IHI140 Hybrid",
+    dealer: "MgRemaps Tekirdağ",
+    img: "./builds/ea211-ihi140.jpg",
+    setup: [
+      "Downpipe",
+      "K&N Filtre",
+      "AEM WMI Kit",
+      "IHI140 Hybrid Turbo",
+    ],
+    t: 15.84, d: -1.27,
+  },
+  {
+    car: "audi-a3-1-4-tsi-ea211-150",
+    s: 3,
+    title: "1.4 TSI IHI140 Hybrid",
+    dealer: "MgRemaps Tekirdağ",
+    img: "./builds/ea211-ihi140.jpg",
+    setup: [
+      "Downpipe",
+      "K&N Filtre",
+      "AEM WMI Kit",
+      "IHI140 Hybrid Turbo",
+    ],
+    t: 15.84, d: -1.27,
+  },
+  {
+    car: "audi-q2-1-4-tsi-ea211-150",
+    s: 3,
+    title: "1.4 TSI IHI140 Hybrid",
+    dealer: "MgRemaps Tekirdağ",
+    img: "./builds/ea211-ihi140.jpg",
+    setup: [
+      "Downpipe",
+      "K&N Filtre",
+      "AEM WMI Kit",
+      "IHI140 Hybrid Turbo",
+    ],
+    t: 15.84, d: -1.27,
+  },
+  {
+    car: "audi-q3-1-4-tsi-ea211-150",
+    s: 3,
+    title: "1.4 TSI IHI140 Hybrid",
+    dealer: "MgRemaps Tekirdağ",
+    img: "./builds/ea211-ihi140.jpg",
+    setup: [
+      "Downpipe",
+      "K&N Filtre",
+      "AEM WMI Kit",
+      "IHI140 Hybrid Turbo",
+    ],
+    t: 15.84, d: -1.27,
+  },
+  {
+    car: "audi-a4-1-4-tsi-ea211-150",
+    s: 3,
+    title: "1.4 TSI IHI140 Hybrid",
+    dealer: "MgRemaps Tekirdağ",
+    img: "./builds/ea211-ihi140.jpg",
+    setup: [
+      "Downpipe",
+      "K&N Filtre",
+      "AEM WMI Kit",
+      "IHI140 Hybrid Turbo",
+    ],
+    t: 15.84, d: -1.27,
+  },
+  {
+    car: "audi-a5-1-4-tsi-ea211-150",
+    s: 3,
+    title: "1.4 TSI IHI140 Hybrid",
+    dealer: "MgRemaps Tekirdağ",
+    img: "./builds/ea211-ihi140.jpg",
+    setup: [
+      "Downpipe",
+      "K&N Filtre",
+      "AEM WMI Kit",
+      "IHI140 Hybrid Turbo",
+    ],
+    t: 15.84, d: -1.27,
+  },
+  {
+    car: "audi-tt-8j-2-0-tsi-ea888-g2-220",
+    s: 2,
+    title: "TT 8J 2.0 TFSI DSG",
+    dealer: "MgRemaps Tekirdağ",
+    img: "./builds/audi-tt-8j-stage2.jpg",
+    setup: [
+      "Stage 2 ECU + Stage 1 DSG",
+      "K&N Filtre",
+      "Downpipe",
+      "FMIC",
+    ],
+    t: 14.3, d: -0.7,
+  },
 ];
 
 const GROUPS = [
@@ -1367,6 +1895,20 @@ function PowerTab({ S, veh, setVeh }) {
   const [pick, setPick] = useState(false);
   const [brand, setBrand] = useState(null);
   const [help, setHelp] = useState(false);
+  const [builds, setBuilds] = useState(BUILDS_FALLBACK);
+
+  useEffect(() => {
+    let alive = true;
+    fetch(APP.builds, { cache: "no-store" })
+      .then((r) => (r.ok ? r.json() : Promise.reject()))
+      .then((j) => {
+        if (alive && Array.isArray(j)) setBuilds(j);
+      })
+      .catch(() => {});
+    return () => {
+      alive = false;
+    };
+  }, []);
   const [stage, setStage] = useState(2); // 0 stok, 1 s1, 2 s2, 3 büyük turbo
   const [q, setQ] = useState("");
 
@@ -1416,7 +1958,8 @@ function PowerTab({ S, veh, setVeh }) {
     const maxHp = Math.max(...all.filter((a) => a.hp != null).map((a) => a.hp));
     const maxNm = Math.max(...all.filter((a) => a.nm != null).map((a) => a.nm));
     const xMax = Math.max(veh.rl, s3 ? s3.rl : 0);
-    const cur = curves[stage] || curves.find((c) => c) ;
+    const cur = curves[stage] || curves.find((c) => c);
+    const refs = builds.filter((b) => b.car === veh.id && b.s === stage);
 
     const stages = [
       { label: S.stock, i: 0, hp: veh.hp[0], nm: NM[0] },
@@ -1433,6 +1976,9 @@ function PowerTab({ S, veh, setVeh }) {
           {stages.map((st) => {
             const on = st.i === stage;
             const off = !!st.off;
+            // Yay uzunluğu: yarım daire çevresi = pi * 27
+            const ARC = Math.PI * 27;
+            const fill = off ? 0 : ARC * Math.min(1, st.hp / maxHp);
             return (
               <button
                 key={st.i}
@@ -1440,18 +1986,15 @@ function PowerTab({ S, veh, setVeh }) {
                 onClick={() => !off && setStage(st.i)}
                 title={off ? S.s3off : undefined}
                 style={{
-                  textAlign: "left",
                   cursor: off ? "default" : "pointer",
                   background: on ? t.card : t.btn,
                   border: `1px solid ${on ? t.accent : t.line}`,
                   borderRadius: t.r.card,
-                  padding: "7px 5px",
+                  padding: "7px 5px 8px",
                   color: t.text,
                   opacity: off ? 0.42 : 1,
                   minWidth: 0,
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: 1,
+                  textAlign: "center",
                 }}
               >
                 <div
@@ -1465,66 +2008,64 @@ function PowerTab({ S, veh, setVeh }) {
                     minHeight: 20,
                     display: "flex",
                     alignItems: "flex-start",
+                    justifyContent: "center",
                     gap: 3,
                   }}
                 >
                   <span style={{ minWidth: 0, wordBreak: "break-word" }}>{st.label}</span>
                   {off && <Lock size={9} color={t.muted} style={{ flexShrink: 0, marginTop: 1 }} />}
                 </div>
-                <div
-                  style={{
-                    fontFamily: MONO,
-                    fontSize: 17,
-                    fontWeight: 800,
-                    letterSpacing: "-.04em",
-                    color: off ? t.muted : on ? t.text : t.muted,
-                    lineHeight: 1.15,
-                  }}
+
+                <svg
+                  viewBox="0 0 70 44"
+                  style={{ width: "100%", height: "auto", display: "block", marginTop: 2 }}
                 >
-                  {off ? "—" : fmt(st.hp) + (st.plus ? "+" : "")}
-                  {!off && <span style={{ fontSize: 8.5, color: t.muted }}> {S.hp}</span>}
-                </div>
+                  <path
+                    d="M8 38 A27 27 0 0 1 62 38"
+                    fill="none"
+                    stroke={t.line}
+                    strokeWidth="5"
+                    strokeLinecap="round"
+                  />
+                  {!off && (
+                    <path
+                      d="M8 38 A27 27 0 0 1 62 38"
+                      fill="none"
+                      stroke={on ? t.accent : t.muted}
+                      strokeWidth="5"
+                      strokeLinecap="round"
+                      strokeDasharray={`${fill.toFixed(1)} ${(ARC * 2).toFixed(0)}`}
+                    />
+                  )}
+                  <text
+                    x="35"
+                    y="36"
+                    textAnchor="middle"
+                    fontFamily={MONO}
+                    fontSize="17"
+                    fontWeight="800"
+                    letterSpacing="-1"
+                    fill={off ? t.muted : on ? t.text : t.muted}
+                  >
+                    {off ? "—" : fmt(st.hp) + (st.plus ? "+" : "")}
+                  </text>
+                </svg>
+
                 <div
                   style={{
                     fontFamily: MONO,
                     fontSize: 11,
                     color: off ? t.muted : on ? t.text : t.muted,
+                    marginTop: 2,
                     lineHeight: 1.2,
                   }}
                 >
-                  {off ? "—" : fmt(st.nm)}
-                  {!off && <span style={{ fontSize: 8.5, color: t.muted }}> {S.nm}</span>}
-                </div>
-                <div
-                  style={{
-                    fontFamily: MONO,
-                    fontSize: 9,
-                    fontWeight: 700,
-                    color: on ? t.accent : t.muted,
-                    minHeight: 12,
-                    lineHeight: 1.2,
-                  }}
-                >
-                  {!off && st.i > 0 ? `+${fmt(st.hp - veh.hp[0])}/+${fmt(st.nm - NM[0])}` : ""}
+                  {off ? "—" : `${fmt(st.nm)} ${S.nm}`}
                 </div>
               </button>
             );
           })}
         </div>
-
-        {note && (
-          <div
-            style={{
-              fontFamily: MONO,
-              fontSize: 10,
-              color: t.warn,
-              padding: "0 2px",
-              letterSpacing: ".04em",
-            }}
-          >
-            {stages[stage].label} · {note} {S.req}
-          </div>
-        )}
 
         <Card style={{ padding: "10px 6px 4px" }}>
           <DynoChart
@@ -1571,6 +2112,8 @@ function PowerTab({ S, veh, setVeh }) {
           </div>
         </Card>
 
+        <RefBuilds S={S} rows={refs} />
+
         <div style={{ fontSize: 10, color: t.muted, lineHeight: 1.5, padding: "0 2px" }}>
           {S.disclaimer}
         </div>
@@ -1594,7 +2137,6 @@ function PowerTab({ S, veh, setVeh }) {
         }}
       >
         <SetupArt />
-        <span style={{ fontSize: 12, color: t.text }}>{S.pickPrompt}</span>
       </button>
     );
   }
@@ -1637,10 +2179,7 @@ function PowerTab({ S, veh, setVeh }) {
           />
         </span>
         {help && (
-          <span style={{ display: "grid", gap: 4, fontSize: 11, lineHeight: 1.45, color: t.text }}>
-            <span>{S.notFoundBody}</span>
-            <span style={{ color: t.muted }}>{S.notFoundOld}</span>
-          </span>
+          <span style={{ fontSize: 11, lineHeight: 1.45, color: t.text }}>{S.notFoundBody}</span>
         )}
       </button>
 
@@ -1690,6 +2229,41 @@ function PowerTab({ S, veh, setVeh }) {
           >
             <ChevronLeft size={13} /> {S.back}
           </button>
+        )}
+
+        {/* Hızlı erişim */}
+        {!brand && !q && (
+          <>
+            <div
+              style={{
+                padding: "7px 11px",
+                background: t.btn,
+                fontSize: 10,
+                letterSpacing: ".09em",
+                fontWeight: 700,
+                color: t.accent,
+                textTransform: "uppercase",
+              }}
+            >
+              {S.quick}
+            </div>
+            {QUICK.map((id) => VEHICLES.find((v) => v.id === id))
+              .filter(Boolean)
+              .map((v) => (
+                <PickRow
+                  key={"q" + v.id}
+                  title={`${v.g} · ${v.m}`}
+                  sub={`${v.y} · ${v.e}`}
+                  right={<Zap size={14} color={t.accent} />}
+                  onClick={() => {
+                    setVeh(v);
+                    setPick(false);
+                    setQ("");
+                    setBrand(null);
+                  }}
+                />
+              ))}
+          </>
         )}
 
         {/* 1. adım: marka */}
@@ -2070,6 +2644,228 @@ function RecentStrip({ S }) {
 
 /* Boş ekran çizimi: dizüstü → yazılım cihazı → OBD portu → araç.
    Tek renk çizgi, tema renklerini kullanır. */
+/* Referans araç şeridi — katlanır. Seçili araç ve seviyede kayıt yoksa
+   hiç çizilmez, ekranda yer kaplamaz. */
+function RefBuilds({ S, rows }) {
+  const t = useT();
+  const { fmt, sec, pct } = useF();
+  const [open, setOpen] = useState(true);
+  if (!rows.length) return null;
+
+  return (
+    <div
+      style={{
+        background: t.card,
+        border: `1px solid ${t.line}`,
+        borderRadius: t.r.card,
+        overflow: "hidden",
+      }}
+    >
+      <button
+        onClick={() => setOpen((v) => !v)}
+        style={{
+          width: "100%",
+          minHeight: 42,
+          display: "flex",
+          alignItems: "center",
+          gap: 7,
+          padding: "0 11px",
+          background: "transparent",
+          border: 0,
+          color: t.text,
+          cursor: "pointer",
+        }}
+      >
+        <Camera size={13} color={t.accent} />
+        <span
+          style={{
+            fontSize: 10,
+            fontWeight: 700,
+            letterSpacing: ".09em",
+            color: t.text,
+          }}
+        >
+          {S.refCar}
+        </span>
+        <span style={{ fontFamily: MONO, fontSize: 10, color: t.muted }}>
+          {rows.length > 1 ? `(${rows.length})` : ""}
+        </span>
+        <ChevronDown
+          size={14}
+          color={t.muted}
+          style={{
+            marginLeft: "auto",
+            transform: open ? "rotate(180deg)" : "none",
+            transition: "transform .15s",
+          }}
+        />
+      </button>
+
+      {open && (
+        <div
+          className="hstrip"
+          style={{
+            display: "flex",
+            gap: 6,
+            overflowX: "auto",
+            scrollSnapType: "x proximity",
+            WebkitOverflowScrolling: "touch",
+            padding: "0 8px 9px",
+          }}
+        >
+          {rows.map((r, i) => (
+            <div
+              key={i}
+              style={{
+                flex: "0 0 auto",
+                width: 230,
+                scrollSnapAlign: "start",
+                background: t.btn,
+                border: `1px solid ${t.line}`,
+                borderRadius: t.r.card,
+                overflow: "hidden",
+              }}
+            >
+              <div
+                style={{
+                  aspectRatio: "16 / 9",
+                  background: t.card,
+                  borderBottom: `1px solid ${t.line}`,
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  overflow: "hidden",
+                }}
+              >
+                {r.img ? (
+                  <img
+                    src={r.img}
+                    alt={r.dealer || S.refCar}
+                    loading="lazy"
+                    style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
+                    onError={(e) => {
+                      e.currentTarget.style.display = "none";
+                    }}
+                  />
+                ) : (
+                  <Car size={20} color={t.line} />
+                )}
+              </div>
+
+              <div style={{ padding: 9, display: "grid", gap: 8 }}>
+                {r.title && (
+                  <div style={{ fontSize: 12, fontWeight: 700, color: t.text, lineHeight: 1.3 }}>
+                    {r.title}
+                  </div>
+                )}
+
+                {(r.hp != null || r.nm != null) && (
+                  <div style={{ display: "flex", alignItems: "baseline", gap: 8 }}>
+                    {r.hp != null && (
+                      <span
+                        style={{
+                          fontFamily: MONO,
+                          fontSize: 17,
+                          fontWeight: 800,
+                          letterSpacing: "-.03em",
+                          color: t.text,
+                        }}
+                      >
+                        {fmt(r.hp)}
+                        <span style={{ fontSize: 9, color: t.muted }}> {S.hp}</span>
+                      </span>
+                    )}
+                    {r.nm != null && (
+                      <span style={{ fontFamily: MONO, fontSize: 12, color: t.muted }}>
+                        {fmt(r.nm)} {S.nm}
+                      </span>
+                    )}
+                  </div>
+                )}
+
+                {[
+                  { lbl: S.refTime0, v: r.t100, d: r.d100 },
+                  { lbl: S.refTime, v: r.t, d: r.d },
+                ]
+                  .filter((x) => x.v != null)
+                  .map((x) => (
+                    <div key={x.lbl} style={{ display: "flex", alignItems: "baseline", gap: 6 }}>
+                      <span style={{ fontSize: 9, letterSpacing: ".05em", color: t.muted, flex: 1 }}>
+                        {x.lbl}
+                      </span>
+                      <span
+                        style={{
+                          fontFamily: MONO,
+                          fontSize: 15,
+                          fontWeight: 800,
+                          letterSpacing: "-.03em",
+                          color: t.text,
+                        }}
+                      >
+                        {sec(x.v)}
+                        <span style={{ fontSize: 9, color: t.muted }}> {S.sec}</span>
+                      </span>
+                      {x.d != null && (
+                        <span
+                          style={{
+                            fontFamily: MONO,
+                            fontSize: 10,
+                            fontWeight: 700,
+                            color: x.d < 0 ? t.accent : t.muted,
+                            minWidth: 42,
+                            textAlign: "right",
+                          }}
+                        >
+                          {pct(x.d)}
+                        </span>
+                      )}
+                    </div>
+                  ))}
+
+                {r.setup && (
+                  <div>
+                    <Label>{S.refSetup}</Label>
+                    <div style={{ marginTop: 3, display: "grid", gap: 2 }}>
+                      {(Array.isArray(r.setup) ? r.setup : [r.setup]).map((x, k) => (
+                        <div
+                          key={k}
+                          style={{
+                            fontSize: 10.5,
+                            lineHeight: 1.35,
+                            color: t.text,
+                            paddingLeft: 9,
+                            position: "relative",
+                          }}
+                        >
+                          <span style={{ position: "absolute", left: 0, color: t.accent }}>·</span>
+                          {x}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {r.dealer && (
+                  <div>
+                    <Label>{S.refDealer}</Label>
+                    <div style={{ fontSize: 11, lineHeight: 1.4, color: t.text, marginTop: 2 }}>
+                      {r.dealer}
+                    </div>
+                  </div>
+                )}
+
+                {r.note && (
+                  <div style={{ fontSize: 9.5, color: t.muted, lineHeight: 1.4 }}>{r.note}</div>
+                )}
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
 function SetupArt() {
   const t = useT();
   const L = { fill: "none", stroke: t.line, strokeWidth: 1.6, strokeLinejoin: "round", strokeLinecap: "round" };

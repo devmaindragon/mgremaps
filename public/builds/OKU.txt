@@ -1,0 +1,6 @@
+Referans arac gorselleri buraya konur.
+Dosya adi builds.json icindeki img alaniyla ayni olmali, ornek:
+  golf-14tsi-is20.jpg
+  g20-320i-stage2.jpg
+Onerilen boyut: 640x360 (16:9). Kart 230x129 px gosterir, ortadan kirpar.
+Dosya yoksa kartta arac ikonu gorunur, kart bozulmaz.
